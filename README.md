@@ -10,5 +10,5 @@
 ###Frontend:
 
 * Angular
-* Angular-Route, Angular-Material
+* Angular-Route, Angular-Material, Angular-Messages
 

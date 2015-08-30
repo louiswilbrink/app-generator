@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'app.components.login'])
+angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.components.login'])
     .config(function ($routeProvider) {
 
     /**************************************************
