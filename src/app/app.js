@@ -7,8 +7,7 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.comp
     * Route Configuration
     **************************************************/
     $routeProvider.when('/', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+        templateUrl: 'views/login.html'
     })
     $routeProvider.when('/dashboard', {
         template: '<h1>Dashboard</h1>',

@@ -1,9 +1,6 @@
 var express       = require('express');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
-var session       = require('express-session');
-var passport      = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var mongoose      = require('mongoose');
 var argv          = require('yargs').argv;
 var morgan        = require('morgan');
@@ -19,6 +16,15 @@ var appRoutes     = require('./server/routes');
  ******************************************************/
 
 app.use(express.static(serverConfig.rootDir + '/src/app'));
+
+app.use(cookieParser());
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 app.use(authRoutes);
 app.use(emailRoutes);
 app.use(appRoutes);
