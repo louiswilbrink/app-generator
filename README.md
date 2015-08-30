@@ -1,3 +1,14 @@
-#HyprLoco Portal
+#App Generator
 
-A portal for HyprLoco customers to configure beacon events.
+##Architecture:
+
+###Backend:
+* Node/Express
+* PassportJS
+* Firebase
+
+###Frontend:
+
+* Angular
+* Angular-Route, Angular-Material
+
