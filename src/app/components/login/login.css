@@ -1,0 +1,7 @@
+/* TODO: Once build system/SASS is added, compile all componenent .scss files.  For example, convert login.scss to login.css.  This file is a temporary 'compiled' file */
+
+.login-container {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
