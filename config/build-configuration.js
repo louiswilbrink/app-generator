@@ -1,3 +1,4 @@
+// TODO: replace multple forEach loops with _.extend()
 /******************************************************************************
  *
  * Author: Louis Wilbrink
