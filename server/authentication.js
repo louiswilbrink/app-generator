@@ -4,19 +4,23 @@ var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var morgan        = require('morgan');
 
+var db            = require('./db');
 var serverConfig  = require('./configuration');
 var router        = express.Router();
+var config        = require('../config/build-configuration');
 
 /*******************************************************
  * CONFIGURATION
  ******************************************************/
 
 router.use(morgan('dev'));
+
 router.use(session({ 
     secret: 'autonomous moon explore vehicle',
     resave: false,
     saveUninitialized: false
 }));
+
 router.use(passport.initialize());
 router.use(passport.session());
 
@@ -70,6 +74,7 @@ function auth (req, res, next) {
         res.sendStatus(401);
     }
 }
+
 /*******************************************************
  * ROUTES
  ******************************************************/

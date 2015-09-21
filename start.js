@@ -11,9 +11,11 @@ var authRoutes    = require('./server/authentication');
 var emailRoutes   = require('./server/email');
 var appRoutes     = require('./server/routes');
 
-/*******************************************************
+var config        = require('./config/build-configuration');
+
+/******************************************************************************
  * CONFIGURATION
- ******************************************************/
+ *****************************************************************************/
 
 app.use(express.static(serverConfig.rootDir + '/src/app'));
 
@@ -29,9 +31,9 @@ app.use(authRoutes);
 app.use(emailRoutes);
 app.use(appRoutes);
 
-/*******************************************************
+/******************************************************************************
  * START WEBSERVER
- ******************************************************/
+ *****************************************************************************/
 
 app.listen(8080);
 console.log('Listening on 8080');

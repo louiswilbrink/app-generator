@@ -14,6 +14,7 @@ router.use(morgan('dev'));
  ******************************************************/
 
 router.all('/', function(req, res) {
+    console.log('sending index.html');
     res.sendFile('index.html', { 
         root: serverConfig.rootDir + '/src/'
     });

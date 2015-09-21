@@ -2,6 +2,6 @@ node_modules/
 src/app/bower_components/
 .tmp/
 dist/
-config/env.js
+config/configuration.js
 *.swp
 logs/
