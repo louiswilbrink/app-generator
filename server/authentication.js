@@ -61,23 +61,32 @@ passport.deserializeUser(function(user, done) {
   //User.findById(_id, function(err, user) {
     //done(err, user);
   //});
+
+  done(null, user);
 });
 
 function auth (req, res, next) {
-    // Passport automatically generates a user object on every request if the cookie is valid.
+    console.log('auth');
+    // Passport automatically generates a user object on every request if the 
+    // cookie is valid.
     if (req.user) {
         console.log(req.user.username, 'is logged in');
-        next();
+        res.sendStatus(200);
     }
     else {
         console.log('user not logged in');
         res.sendStatus(401);
     }
+    next();
 }
 
 /*******************************************************
  * ROUTES
  ******************************************************/
+
+router.get('/is-authenticated', auth, function (req, res) {
+    console.log('/is-authenticated');
+});
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
     console.log('/login', 'req.body', req.body);
