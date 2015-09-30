@@ -7,7 +7,6 @@ var morgan        = require('morgan');
 var db            = require('./db');
 var serverConfig  = require('./configuration');
 var router        = express.Router();
-var config        = require('../config/build-configuration');
 
 /*******************************************************
  * CONFIGURATION

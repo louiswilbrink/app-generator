@@ -11,7 +11,9 @@ var authRoutes    = require('./server/authentication');
 var emailRoutes   = require('./server/email');
 var appRoutes     = require('./server/routes');
 
-var config        = require('./config/build-configuration');
+var config        = require('./config/configuration').getConfig();
+
+console.log('config', config);
 
 /******************************************************************************
  * CONFIGURATION
