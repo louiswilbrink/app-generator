@@ -1,7 +1,7 @@
 var express       = require('express');
 var morgan        = require('morgan');
-var serverConfig  = require('./configuration');
 var router        = express.Router();
+var config        = require('../config/configuration').getConfig();
 
 /*******************************************************
  * CONFIGURATION
@@ -16,7 +16,7 @@ router.use(morgan('dev'));
 router.all('/', function(req, res) {
     console.log('sending index.html');
     res.sendFile('index.html', { 
-        root: serverConfig.rootDir + '/src/'
+        root: config.rootDir + '/src/'
     });
 });
 

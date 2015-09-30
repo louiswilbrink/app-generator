@@ -1,6 +1,5 @@
 var express       = require('express');
 var morgan        = require('morgan');
-var serverConfig  = require('./configuration');
 var router        = express.Router();
 
 /*******************************************************

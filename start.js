@@ -6,20 +6,17 @@ var argv          = require('yargs').argv;
 var morgan        = require('morgan');
 
 var app           = express();
-var serverConfig  = require('./server/configuration').set('rootDir', __dirname);
 var authRoutes    = require('./server/authentication');
 var emailRoutes   = require('./server/email');
 var appRoutes     = require('./server/routes');
 
 var config        = require('./config/configuration').getConfig();
 
-console.log('config', config);
-
 /******************************************************************************
  * CONFIGURATION
  *****************************************************************************/
 
-app.use(express.static(serverConfig.rootDir + '/src/app'));
+app.use(express.static(config.rootDir + '/src/app'));
 
 app.use(cookieParser());
 

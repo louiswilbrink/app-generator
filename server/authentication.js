@@ -5,8 +5,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var morgan        = require('morgan');
 
 var db            = require('./db');
-var serverConfig  = require('./configuration');
 var router        = express.Router();
+
+var config        = require('../config/configuration').getConfig();
 
 /*******************************************************
  * CONFIGURATION
@@ -15,7 +16,7 @@ var router        = express.Router();
 router.use(morgan('dev'));
 
 router.use(session({ 
-    secret: 'autonomous moon explore vehicle',
+    secret: config.sessionSecret,
     resave: false,
     saveUninitialized: false
 }));
