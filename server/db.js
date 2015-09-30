@@ -5,6 +5,8 @@ var q        = require('q');
 // Initialize private variables.
 var users = {};
 
+var dbRef = new Firebase('https://wilforge-generator.firebaseio.com');
+
 // Configure Firebase references.
 var usersRef = new Firebase('https://wilforge-generator.firebaseio.com/users');
 
@@ -32,6 +34,24 @@ var db = {
         else {
             return false;
         }
+    },
+    // Returns user Id if successful.
+    auth: function (username, password) {
+        var id = q.defer();
+
+        dbRef.authWithPassword({
+            email: username,
+            password: password
+        }, function (error, authData) {
+            if (!error) {
+                id.resolve(authData.uid);
+            }
+            else {
+                id.reject(new Error(error));
+            }
+        });
+
+        return id.promise;
     }
 };
 

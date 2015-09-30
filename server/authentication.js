@@ -26,12 +26,32 @@ router.use(passport.session());
 
 /*******************************************************
  * AUTHENTICATION / SESSION
- * ****************************************************/
+ ******************************************************/
+
+db.getUser('_id')
+    .then(function (user) {
+        console.log(user);
+    });
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
     console.log('employing local strategy:', username, password);
-    return done(null, { username: username, password: password });
+
+    db.auth(username, password)
+        .then(function (id) {
+            db.getUser(id)
+                .then(function (user) {
+                    console.log('user', user);
+                    return done(null, user);
+                });
+        })
+        .catch(function (error) {
+            console.log('db.auth error:', error);
+            return done(error);
+        });
+
+    //return done(null, { username: username, password: password });
+
     //User.findOne({ username: username }, function (err, user) {
         //console.log('User.findOne results:', err, user);
         //if (err) {
