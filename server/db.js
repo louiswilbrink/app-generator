@@ -15,6 +15,9 @@ usersRef.on('value', function (snapshot) {
 });
 
 var db = {
+    registerUser: function (email, password) {
+
+    },
     getUser: function (id) {
         var user = q.defer();
 

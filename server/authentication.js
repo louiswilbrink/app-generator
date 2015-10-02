@@ -78,19 +78,14 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(user, done) {
   console.log('deserializeUser', user);
-  //User.findById(_id, function(err, user) {
-    //done(err, user);
-  //});
-
   done(null, user);
 });
 
 function auth (req, res, next) {
-    console.log('auth');
     // Passport automatically generates a user object on every request if the 
     // cookie is valid.
     if (req.user) {
-        console.log(req.user.username, 'is logged in');
+        console.log(req.user.email, 'is logged in');
         res.sendStatus(200);
     }
     else {
