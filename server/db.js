@@ -15,8 +15,36 @@ usersRef.on('value', function (snapshot) {
 });
 
 var db = {
-    registerUser: function (email, password) {
+    addUser: function (uid, email) {
+        console.log('db.addUser', uid, email);
 
+        // Add a user.
+        // user key is equivalent to uid from user registration.
+        usersRef.child(uid).set({
+            email: email
+        });
+    },
+    registerUser: function (email, password) {
+        console.log('db.registerUser', email, password);
+
+        var uid = q.defer();
+        
+        // Create user in Firebase.
+        dbRef.createUser({
+            email: email,
+            password: password
+        }, function (error, userData) {
+            if (error) {
+                console.log('dbRef.createUser', 'error', error);
+                uid.reject(new Error(error));
+            }
+            else {
+                console.log('dbRef.createUser', 'userData', userData);
+                uid.resolve(userData.uid);
+            }
+        });
+
+        return uid.promise;
     },
     getUser: function (id) {
         var user = q.defer();

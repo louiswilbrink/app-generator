@@ -103,6 +103,21 @@ router.get('/is-authenticated', auth, function (req, res) {
     console.log('/is-authenticated');
 });
 
+router.post('/register-user', function (req, res) {
+    console.log('/register-user...');
+
+    console.log('req.body', req.body);
+
+    db.registerUser(req.body.email, req.body.password)
+        .then(function (uid) {
+            console.log('/register-user success', uid)
+            db.addUser(uid, req.body.email);
+        })
+        .catch(function (error) {
+            console.log('/register-user error', error);
+        });
+});
+
 router.post('/login', passport.authenticate('local'), function (req, res) {
     console.log('/login', 'req.body', req.body);
     res.send('/login received');

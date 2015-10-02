@@ -28,7 +28,7 @@ angular.module('app.components.signUp', [])
                 method: 'POST',
                 url: '/register-user', 
                 data: $httpParamSerializer({
-                    username: email,
+                    email: email,
                     password: password 
                 }),
                 headers: {
