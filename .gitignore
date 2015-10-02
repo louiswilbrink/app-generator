@@ -5,3 +5,4 @@ dist/
 config/configuration.js
 *.swp
 logs/
+.sass-cache/

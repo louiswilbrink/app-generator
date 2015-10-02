@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.components.login'])
+angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.components.login', 'app.components.signUp'])
     .config(function ($routeProvider) {
 
     /**************************************************
@@ -8,6 +8,9 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.comp
     **************************************************/
     $routeProvider.when('/', {
         templateUrl: 'views/login.html'
+    })
+    $routeProvider.when('/sign-up', {
+        templateUrl: 'views/sign-up.html'
     })
     $routeProvider.when('/dashboard', {
         template: '<h1>Dashboard</h1>',
