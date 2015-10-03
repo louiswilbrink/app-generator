@@ -1,0 +1,40 @@
+<div class="wil-toolbar-container">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>Application Name</span>
+                </h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" aria-label="Settings">-->
+                    <!--<md-tooltip>{{ vm.email }}</md-tooltip>-->
+                    <!--<i class="mdi mdi-account"></i>-->
+                <!--</md-button>-->
+                <md-menu md-position-mode="target-right target">
+                  <!--<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-mouseenter="ctrl.openMenu($mdOpenMenu, $event)">-->
+                    <!--<md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>-->
+                  <!--</md-button>-->
+                  <md-button class="md-icon-button" aria-label="Settings" 
+                      ng-click="vm.openMenu($mdOpenMenu, $event)">
+                      <i class="mdi mdi-account"></i>
+                  </md-button>
+                  <md-menu-content width="4">
+                    <md-menu-item>
+                      <md-button>Messages</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                      <md-button>Profile</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                      <md-button>Billing</md-button>
+                    </md-menu-item>
+                    <md-divider></md-divider>
+                    <md-menu-item>
+                      <md-button>Log Out</md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+            </div>
+        </md-toolbar>
+    </md-content>
+</div>

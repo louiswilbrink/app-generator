@@ -14,9 +14,9 @@ angular.module('app.components.login', [])
         };
     }
 
-    LoginCtrl.$inject = ['$http', '$httpParamSerializer'];
+    LoginCtrl.$inject = ['$http', '$httpParamSerializer', '$location'];
 
-    function LoginCtrl ($http, $httpParamSerializer) {
+    function LoginCtrl ($http, $httpParamSerializer, $location) {
         var vm = this;
 
         vm.email = null;
@@ -36,6 +36,7 @@ angular.module('app.components.login', [])
             })
             .then(function (response) {
                 console.log('got a response!', response);
+                $location.path('/dashboard');
             }, function (err) {
                 console.log('got an error', err);
             });

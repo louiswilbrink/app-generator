@@ -1,6 +1,8 @@
 'use strict'
 
-angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.components.login', 'app.components.signUp'])
+angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 
+    'app.components.login', 'app.components.signUp', 
+    'app.components.wilToolbar'])
     .config(function ($routeProvider) {
 
     /**************************************************
@@ -9,11 +11,11 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.comp
     $routeProvider.when('/', {
         templateUrl: 'views/login.html'
     })
-    $routeProvider.when('/sign-up', {
+    .when('/sign-up', {
         templateUrl: 'views/sign-up.html'
     })
-    $routeProvider.when('/dashboard', {
-        template: '<h1>Dashboard</h1>',
+    .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl',
         resolve: {
             auth: function ($http, $location) {
@@ -28,9 +30,12 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'app.comp
             }
         }
     })
-    $routeProvider.when('/example-angular-route', {
+    .when('/example-angular-route', {
         template: '<h1>Example Angular Route</h1>'
     })
+    .otherwise({
+        redirectTo: '/'
+    });
 });
 
  
