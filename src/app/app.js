@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 
-    'app.components.login', 'app.components.signUp', 
+    'app.services.auth', 'app.components.login', 'app.components.signUp', 
     'app.components.wilToolbar'])
     .config(function ($routeProvider) {
 

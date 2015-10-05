@@ -36,7 +36,7 @@ var db = {
         }, function (error, userData) {
             if (error) {
                 console.log('dbRef.createUser', 'error', error);
-                uid.reject(new Error(error));
+                uid.reject(error);
             }
             else {
                 console.log('dbRef.createUser', 'userData', userData);
@@ -52,7 +52,7 @@ var db = {
         usersRef.child(id).once('value', function (snapshot) {
             user.resolve(snapshot.val());
         }, function (error) {
-            user.reject(new Error(error));
+            user.reject(error);
         });
 
         return user.promise;
@@ -78,7 +78,7 @@ var db = {
                 id.resolve(authData.uid);
             }
             else {
-                id.reject(new Error(error));
+                id.reject(error); 
             }
         });
 

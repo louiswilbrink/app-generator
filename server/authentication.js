@@ -28,27 +28,32 @@ router.use(passport.session());
  * AUTHENTICATION / SESSION
  ******************************************************/
 
-db.getUser('_id')
-    .then(function (user) {
-        console.log(user);
-    });
-
 passport.use(new LocalStrategy(
   function(username, password, done) {
     console.log('employing local strategy:', username, password);
 
-    db.auth(username, password)
+    return db.auth(username, password)
         .then(function (id) {
-            db.getUser(id)
-                .then(function (user) {
-                    console.log('user', user);
-                    return done(null, user);
-                });
+            return db.getUser(id);
+        })
+        .then(function (user) {
+            console.log('found user:', user);
+            return done(null, user);
         })
         .catch(function (error) {
-            console.log('db.auth error:', error);
-            return done(error);
-        });
+            console.log('catch', error);
+
+            // Check if authentication failed due to invalide credentials.
+            // If so, respond with a 401 status code.
+            // If authentication failed due to an error in the code or
+            // firebase request, then respond with a legit 500 status code.
+            if (error.code = 'INVALID_USER') {
+                return done(null, false, { message: 'Invalid user' });
+            }
+            else {
+                return done(error);
+            }
+        })
 
     //return done(null, { username: username, password: password });
 
@@ -119,8 +124,8 @@ router.post('/register-user', function (req, res) {
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-    console.log('/login', 'req.body', req.body);
-    res.send('/login received');
+    console.log('/login');
+    res.end();
 });
 
 /*******************************************************
