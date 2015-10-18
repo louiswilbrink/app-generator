@@ -1,14 +1,15 @@
 // Dependencies.
 var Firebase = require('firebase');
 var q        = require('q');
+var config   = require('../config/configuration').getConfig();
 
 // Initialize private variables.
 var users = {};
 
-var dbRef = new Firebase('https://wilforge-generator.firebaseio.com');
+var dbRef = new Firebase(config.firebaseEndpoint);
 
 // Configure Firebase references.
-var usersRef = new Firebase('https://wilforge-generator.firebaseio.com/users');
+var usersRef = new Firebase(config.firebaseEndpoint);
 
 usersRef.on('value', function (snapshot) {
     users = snapshot.val();
