@@ -9,7 +9,7 @@ var users = {};
 var dbRef = new Firebase(config.firebaseEndpoint);
 
 // Configure Firebase references.
-var usersRef = new Firebase(config.firebaseEndpoint);
+var usersRef = new Firebase(config.firebaseEndpoint + '/users');
 
 usersRef.on('value', function (snapshot) {
     users = snapshot.val();
