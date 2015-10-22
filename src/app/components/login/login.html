@@ -1,4 +1,5 @@
 <div class="login-container">
+    <wil-progress ng-if="vm.isLoading"></wil-progress>
     <form name="loginForm" ng-submit="vm.onLogin(vm.email, vm.password)">
         <md-content class="md-padding">
             <md-card>

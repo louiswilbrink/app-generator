@@ -2,7 +2,7 @@
 
 angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 
     'app.services.auth', 'app.components.login', 'app.components.signUp', 
-    'app.components.wilToolbar'])
+    'app.components.wilToolbar', 'app.directives.progress'])
     .config(function ($routeProvider) {
 
     /**************************************************

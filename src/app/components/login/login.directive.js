@@ -22,9 +22,11 @@ angular.module('app.components.login', [])
         vm.email = null;
         vm.password = null;
         vm.isUnauthorized = false;
+        vm.isLoading = false;
 
         // Authenticate with server.
         vm.onLogin = function (email, password) {
+            vm.isLoading = true;
             $http({
                 method: 'POST',
                 url: '/login', 
@@ -49,6 +51,7 @@ angular.module('app.components.login', [])
             })
             .catch(function (error) {
                 vm.isUnauthorized = true;
+                vm.isLoading = false;
                 console.log('ERR:', error);
             });
         }

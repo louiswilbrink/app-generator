@@ -1,0 +1,11 @@
+wil-progress {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 10;
+  background-color: white;
+  opacity: 0.5; }
+  wil-progress .container {
+    height: 100%; }
