@@ -2,7 +2,7 @@
 
 angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages', 
     'app.services.auth', 'app.components.login', 'app.components.signUp', 
-    'app.components.wilToolbar', 'app.directives.progress'])
+    'app.components.wilToolbar', 'app.directives.progress', 'app.components.wilSidenav'])
     .config(function ($routeProvider) {
 
     /**************************************************
@@ -21,10 +21,10 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
             auth: function ($http, $location) {
                 return $http.get('/is-authenticated')
                     .success(function (payload) {
-                        console.log('success', payload);
+                        console.log('/is-authenticated (200)');
                     })
                     .error(function (error) {
-                        console.log(error);
+                        console.log('/is-authenticated (500)');
                         $location.path('/');
                     });
             }

@@ -14,16 +14,23 @@ angular.module('app.components.signUp', [])
         };
     }
 
-    SignUpCtrl.$inject = ['$http', '$httpParamSerializer'];
+    SignUpCtrl.$inject = ['$http', 
+        '$httpParamSerializer', 
+        '$location', 
+        'Auth'];
 
-    function SignUpCtrl ($http, $httpParamSerializer) {
+    function SignUpCtrl ($http, $httpParamSerializer, $location, Auth) {
         var vm = this;
 
         vm.email = null;
         vm.password = null;
+        vm.isUnauthorized = false;
+        vm.isLoading = false;
 
         vm.onSignUp = function (email, password) {
-            console.log('onSignUp');
+            vm.isLoading = true;
+
+            // Request server to register user with Firebase.
             $http({
                 method: 'POST',
                 url: '/register-user', 
@@ -35,10 +42,46 @@ angular.module('app.components.signUp', [])
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             })
+            // ..then confirm successful registration or handle errors.
+            .then(function (response) { 
+                // TODO: Set user service
+                console.log('/register user (200):', response.data.uid);
+                vm.isLoading = false;
+            }, function (error) {
+                console.log('/register user (500):', error);
+                vm.isLoading = false;
+                vm.isUnauthorized = true;
+            })
+            // .. then authenticate with the server.
+            .then(function () {
+
+                // TODO: refactor this (in login.directive.js too)
+                return $http({
+                    method: 'POST',
+                    url: '/login', 
+                    data: $httpParamSerializer({
+                        username: email,
+                        password: password 
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+            })
+            // .. then authenticate with Firebase.
             .then(function (response) {
-                console.log('got a response!', response);
-            }, function (err) {
-                console.log('got an error', err);
+                vm.isUnauthorized = false;
+                return Auth.withEmail(email, password);
+            })
+            // .. then finally redirect to /dashboard -- you're fully
+            // authenticated at this point.
+            .then(function (response) {
+                $location.path('/dashboard');
+            })
+            .catch(function (error) {
+                vm.isUnauthorized = true;
+                vm.isLoading = false;
+                console.log('sign up error:', error);
             });
         }
     }

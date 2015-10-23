@@ -22,11 +22,9 @@ angular.module('app.services.auth', ['firebase'])
                     password: password
                 })
                 .then(function (response) {
-                    console.log('$authWithPassword success:', response);
                     result.resolve(response);
                 })
                 .catch(function (error) {
-                    console.log('$authWithPassword error:', error);
                     result.reject(error);
                 });
 

@@ -68,6 +68,8 @@ passport.deserializeUser(function(user, done) {
 });
 
 function auth (req, res, next) {
+    console.log('auth function');
+
     // Passport automatically generates a user object on every request if the 
     // cookie is valid.
     if (req.user) {
@@ -98,9 +100,13 @@ router.post('/register-user', function (req, res) {
         .then(function (uid) {
             console.log('/register-user success', uid)
             db.addUser(uid, req.body.email);
+
+            // Return uid to client to populate user.
+            res.status(200).json({ uid: uid }); 
         })
         .catch(function (error) {
             console.log('/register-user error', error);
+            res.status(500).json({ error: error });
         });
 });
 

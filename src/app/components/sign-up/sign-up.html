@@ -1,4 +1,5 @@
 <div class="sign-up-container">
+    <wil-progress ng-if="vm.isLoading"></wil-progress>
     <form name="signUpForm" ng-submit="vm.onSignUp(vm.email, vm.password)">
         <md-content class="md-padding">
             <md-card>
@@ -8,7 +9,9 @@
                   </div>
               </md-toolbar>
               <md-card-content>
-                  <!--<h2 class="md-title">Paracosm</h2>-->
+                  <md-subheader ng-if="vm.isUnauthorized" class="md-warn">
+                      Whoops, something's not right.
+                  </md-subheader>
                       <!-- EMAIL FIELD -->
                       <md-input-container>
                           <label>Email</label>
