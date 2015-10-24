@@ -1,5 +1,9 @@
-<wil-sidenav></wil-sidenav>
-<wil-toolbar></wil-toolbar>
-<md-content>
-    <md-subheader class="md-primary">Dashboard</md-subheader>
+<md-content layout="column" style="height: 500px">
+    <wil-toolbar></wil-toolbar>
+    <section layout="row" flex>
+        <wil-sidenav></wil-sidenav>
+        <md-content flex layout-padding>
+            <md-subheader class="md-primary">Dashboard</md-subheader>
+        </md-content>
+    </section>
 </md-content>

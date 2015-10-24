@@ -14,30 +14,12 @@ angular.module('app.components.wilSidenav', [])
         };
     }
 
-    WilSidenavCtrl.$inject = ['$scope'];
+    WilSidenavCtrl.$inject = ['$scope', '$mdSidenav', '$log'];
 
-    function WilSidenavCtrl ($scope) {
+    function WilSidenavCtrl ($scope, $mdSidenav, $log) {
         var vm = this;
 
-        console.log('WilSidenavCtrl');
-
-        $scope.toggleLeft = buildToggler('left');
-        /**
-         * Build handler to open/close a SideNav; when animation finishes
-         * report completion in console
-         */
-        function buildToggler(navID) {
-          var debounceFn =  $mdUtil.debounce(function(){
-                $mdSidenav(navID)
-                  .toggle()
-                  .then(function () {
-                    $log.debug("toggle " + navID + " is done");
-                  });
-              },200);
-          return debounceFn;
-        }
-
-        $scope.close = function () {
+        vm.close = function () {
           $mdSidenav('left').close()
             .then(function () {
               $log.debug("close LEFT is done");

@@ -10,16 +10,17 @@ angular.module('app.components.wilToolbar', [])
             templateUrl: 'components/wil-toolbar/wil-toolbar.html',
             scope: {},
             controller: WilToolbarCtrl,
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            link: function (scope, element, attrs, controllers) {
+                console.log(controllers);
+            }
         };
     }
 
-    WilToolbarCtrl.$inject = ['$mdDialog'];
+    WilToolbarCtrl.$inject = ['$mdDialog', '$mdUtil', '$mdSidenav', '$log'];
 
-    function WilToolbarCtrl ($mdDialog) {
+    function WilToolbarCtrl ($mdDialog, $mdUtil, $mdSidenav, $log) {
         var vm = this;
-
-        vm.email = 'lw@lw.com';
 
         var originatorEv;
 
@@ -27,5 +28,22 @@ angular.module('app.components.wilToolbar', [])
           originatorEv = ev;
           $mdOpenMenu(ev);
         };
+
+        vm.toggleLeft = buildToggler('left');
+
+        /**
+         * Build handler to open/close a SideNav; when animation finishes
+         * report completion in console
+         */
+        function buildToggler(navID) {
+          var debounceFn =  $mdUtil.debounce(function(){
+                $mdSidenav(navID)
+                  .toggle()
+                  .then(function () {
+                    $log.debug("toggle " + navID + " is done");
+                  });
+              },200);
+          return debounceFn;
+        }
     }
 })();

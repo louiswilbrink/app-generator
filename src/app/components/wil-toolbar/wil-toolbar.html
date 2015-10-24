@@ -2,18 +2,12 @@
     <md-content>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>
-                    <span>Application Name</span>
-                </h2>
+                <md-button ng-click="vm.toggleLeft()" class="md-icon-button" aria-label="Settings">
+                    <md-icon md-svg-icon="images/icons/ic_menu_24px.svg"></md-icon>
+                </md-button>
+                <h2><span>Application Name</span></h2>
                 <span flex></span>
-                <!--<md-button class="md-icon-button" aria-label="Settings">-->
-                    <!--<md-tooltip>{{ vm.email }}</md-tooltip>-->
-                    <!--<i class="mdi mdi-account"></i>-->
-                <!--</md-button>-->
                 <md-menu md-position-mode="target-right target">
-                  <!--<md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-mouseenter="ctrl.openMenu($mdOpenMenu, $event)">-->
-                    <!--<md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>-->
-                  <!--</md-button>-->
                   <md-button class="md-icon-button" aria-label="Settings" 
                       ng-click="vm.openMenu($mdOpenMenu, $event)">
                       <i class="mdi mdi-account"></i>
