@@ -1,0 +1,12 @@
+/* Override default sidenav width */
+wil-sidenav {
+  background-color: rgba(203, 203, 203, 0.25); }
+
+md-sidenav.wil-sidenav {
+  width: 202px;
+  min-width: 202px;
+  max-width: 202px; }
+  md-sidenav.wil-sidenav md-content {
+    background-color: rgba(203, 203, 203, 0.25); }
+    md-sidenav.wil-sidenav md-content button {
+      font-weight: 400; }
