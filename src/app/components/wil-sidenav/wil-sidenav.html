@@ -2,18 +2,22 @@
     <md-toolbar class="md-theme-indigo" show-md hide-gt-md>
         <h1 class="md-toolbar-tools">Menu</h1>
     </md-toolbar>
-    <md-content layout-padding>
-        <md-button ng-click="">
+    <md-content layout="column">
+        <md-button ng-click="" layout="row">
+            <md-icon md-svg-icon="images/icons/ic_home_24px.svg"></md-icon>
             <span>Home</span>
         </md-button>
-        <md-button ng-click="">
-            <span>Page 2</span>
+        <md-button ng-click="" layout="row">
+            <md-icon md-svg-icon="images/icons/ic_people_24px.svg"></md-icon>
+            <span>Friends</span>
         </md-button>
-        <md-button ng-click="">
-            <span>Page 3</span>
+        <md-button ng-click="" layout="row">
+            <md-icon md-svg-icon="images/icons/ic_cloud_24px.svg"></md-icon>
+            <span>Cloud Drive</span>
         </md-button>
         <md-button ng-click="vm.close()" hide-gt-md>
-            Close Sidenav Left
+            <md-icon md-svg-icon="images/icons/ic_close_24px.svg"></md-icon>
+            <span>Close Menu</span>
         </md-button>
     </md-content>
 </md-sidenav>

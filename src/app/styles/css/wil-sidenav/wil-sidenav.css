@@ -1,12 +1,19 @@
 /* Override default sidenav width */
-wil-sidenav {
-  background-color: rgba(203, 203, 203, 0.25); }
-
 md-sidenav.wil-sidenav {
   width: 202px;
   min-width: 202px;
   max-width: 202px; }
   md-sidenav.wil-sidenav md-content {
-    background-color: rgba(203, 203, 203, 0.25); }
+    background-color: #f2f2f2;
+    height: 100%; }
     md-sidenav.wil-sidenav md-content button {
-      font-weight: 400; }
+      font-weight: 400;
+      margin-left: 0px;
+      margin-right: 0px;
+      display: block;
+      text-align: left; }
+      md-sidenav.wil-sidenav md-content button md-icon {
+        height: 20px;
+        width: 20px;
+        margin-left: 10px;
+        margin-right: 6px; }

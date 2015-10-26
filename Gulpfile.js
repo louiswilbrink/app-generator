@@ -50,6 +50,11 @@ gulp.task('serve', ['sass'], function () {
     return server.start();
 });
 
+/*
+ * This task will inform new developers which tasks are available to them
+ */
 gulp.task('default', function () {
-    plugins.util.log('use `gulp serve` to start application');
+    plugins.util.log('use `gulp serve` to start application, or `gulp build`' +
+        ' to build production files.  `gulp sass` will compile your scss' + 
+        'and add them to /src/app/styles/css.');
 });
