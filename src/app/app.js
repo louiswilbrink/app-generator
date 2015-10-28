@@ -10,13 +10,13 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
     * Route Configuration
     **************************************************/
     $routeProvider.when('/', {
-        templateUrl: 'views/login.html'
+        templateUrl: 'pages/login.html'
     })
     .when('/sign-up', {
-        templateUrl: 'views/sign-up.html'
+        templateUrl: 'pages/sign-up.html'
     })
     .when('/dashboard', {
-        templateUrl: 'views/dashboard.html',
+        templateUrl: 'pages/dashboard.html',
         controller: 'DashboardCtrl',
         resolve: {
             auth: function ($http, $location) {

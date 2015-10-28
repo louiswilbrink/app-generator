@@ -2,7 +2,7 @@
   "name": "Prototype-Generator",
   "version": "0.0.0",
   "authors": [
-    "Damon Baker"
+    "Louis Wilbrink"
   ],
   "description": "This is a generator for a new app",
   "main": "start.js",

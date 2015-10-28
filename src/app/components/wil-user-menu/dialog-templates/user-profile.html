@@ -1,0 +1,51 @@
+<md-dialog class="user-profile-container" aria-label="User Profile" ng-cloak>
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>User Profile</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="images/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+    <div class="md-dialog-content">
+        <md-input-container class="md-icon-float">
+            <!-- Use floating label instead of placeholder -->
+            <label>Name</label>
+            <md-icon md-svg-src="images/icons/ic_person_24px.svg" class="name"></md-icon>
+            <input ng-model="user.name" type="text">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <label>Phone</label>
+            <md-icon md-svg-src="images/icons/ic_phone_24px.svg"></md-icon>
+            <input ng-model="user.phone" type="text">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <!-- Use floating placeholder instead of label -->
+            <label>Email</label>
+            <md-icon md-svg-src="images/icons/ic_email_24px.svg" class="email"></md-icon>
+            <input ng-model="user.email" type="email" ng-required="true">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <label>Address</label>
+            <md-icon md-svg-src="images/icons/ic_place_24px.svg"></md-icon>
+            <input ng-model="user.address" type="text">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <md-datepicker ng-model="user.birthday" md-placeholder="Birthday"></md-datepicker>
+        </md-input-container>
+    </div>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <md-button>
+        Preferences
+    </md-button>
+    <span flex></span>
+    <md-button ng-click="close()" style="margin-right:20px;" >
+        Close
+    </md-button>
+  </div>
+  </form>
+</md-dialog>
