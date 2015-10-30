@@ -11,9 +11,7 @@ angular.module('app.components.wilToolbar', [])
             scope: {},
             controller: WilToolbarCtrl,
             controllerAs: 'vm',
-            link: function (scope, element, attrs, controllers) {
-                console.log(controllers);
-            }
+            link: function (scope, element, attrs, controllers) { }
         };
     }
 

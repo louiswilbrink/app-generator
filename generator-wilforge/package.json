@@ -1,0 +1,35 @@
+{
+  "name": "generator-wilforge",
+  "version": "0.1.0",
+  "description": "This generator will provide User and session management and email administration out of the box -- without installing a database on your local machine!  It's built using Angular, Firebase, Express, Gulp and PassportJS.  When the generator is launched, you will be required to provide a Firebase and Mandrill endpoint.  Using these platform services is what allows you to start building your app without the messiness of adding more coupled infrastructure to your local/staging/production machines",
+  "file": [
+    "app",
+    "route"
+  ],
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:louiswilbrink/app-generator.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "angular",
+    "firebase",
+    "mandrill",
+    "twilio",
+    "user management",
+    "email administration"
+  ],
+  "author": "Louis Wilbrink",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/louiswilbrink/app-generator/issues"
+  },
+  "homepage": "https://github.com/louiswilbrink/app-generator",
+  "dependencies": {
+    "yeoman-generator": "^0.21.1"
+  }
+}

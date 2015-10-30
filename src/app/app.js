@@ -25,7 +25,7 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
                         console.log('/is-authenticated (200)');
                     })
                     .error(function (error) {
-                        console.log('/is-authenticated (500)');
+                        console.log('/is-authenticated (401)');
                         $location.path('/');
                     });
             }

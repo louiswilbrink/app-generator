@@ -115,6 +115,12 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
     res.end();
 });
 
+router.get('/logout', function (req, res) {
+    console.log('logging out');
+    res.status(200);
+    res.end();
+});
+
 /*******************************************************
  * MODULE.EXPORTS
  ******************************************************/
