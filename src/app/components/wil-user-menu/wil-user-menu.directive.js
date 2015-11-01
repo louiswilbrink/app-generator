@@ -16,9 +16,9 @@ angular.module('app.components.wilUserMenu', [])
         };
     }
 
-    WilUserMenuCtrl.$inject = ['$scope', '$mdDialog', '$mdUtil', '$mdSidenav', '$log'];
+    WilUserMenuCtrl.$inject = ['$scope', '$mdDialog', '$mdUtil', '$mdSidenav', '$log', 'Auth'];
 
-    function WilUserMenuCtrl ($scope, $mdDialog, $mdUtil, $mdSidenav, $log) {
+    function WilUserMenuCtrl ($scope, $mdDialog, $mdUtil, $mdSidenav, $log, Auth) {
         var vm = this;
 
         var originatorEv;
@@ -67,6 +67,10 @@ angular.module('app.components.wilUserMenu', [])
           }, function() {
             $scope.status = 'You cancelled the dialog.';
           });
+        };
+
+        $scope.logout = function () {
+            Auth.logout();
         };
     }
 })();
