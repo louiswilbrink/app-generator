@@ -16,9 +16,9 @@ angular.module('app.components.wilUserMenu', [])
         };
     }
 
-    WilUserMenuCtrl.$inject = ['$scope', '$mdDialog', '$mdUtil', '$mdSidenav', '$log', 'Auth'];
+    WilUserMenuCtrl.$inject = ['$scope', '$mdDialog', '$mdUtil', '$mdSidenav', '$log', 'Auth', '$location'];
 
-    function WilUserMenuCtrl ($scope, $mdDialog, $mdUtil, $mdSidenav, $log, Auth) {
+    function WilUserMenuCtrl ($scope, $mdDialog, $mdUtil, $mdSidenav, $log, Auth, $location) {
         var vm = this;
 
         var originatorEv;
@@ -71,6 +71,7 @@ angular.module('app.components.wilUserMenu', [])
 
         $scope.logout = function () {
             Auth.logout();
+            $location.path('/login');
         };
     }
 })();

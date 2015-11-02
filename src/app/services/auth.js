@@ -31,7 +31,7 @@ angular.module('app.services.auth', ['firebase'])
                 return result.promise;
             },
             logout: function () {
-                console.log('auth.logout');
+                return ref.unauth();
             }
         }
     };
