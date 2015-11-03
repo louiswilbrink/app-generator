@@ -19,13 +19,23 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
         templateUrl: 'pages/dashboard.html',
         controller: 'DashboardCtrl',
         resolve: {
-            auth: function ($http, $location) {
+            serverAuth: function ($http, $location) {
                 return $http.get('/is-authenticated')
                     .success(function (payload) {
                         console.log('/is-authenticated (200)');
                     })
                     .error(function (error) {
                         console.log('/is-authenticated (401)');
+                        $location.path('/');
+                    });
+            },
+            firebaseAuth: function (Auth, $location) {
+                return Auth.getAuthAsPromise()
+                    .then(function (authState) {
+                        console.log('[firebase] - authenticated');
+                    })
+                    .catch(function (error) {
+                        console.log('[firebase] - unauthenticated');
                         $location.path('/');
                     });
             }

@@ -16,9 +16,11 @@ angular.module('app.components.wilUserMenu', [])
         };
     }
 
-    WilUserMenuCtrl.$inject = ['$scope', '$mdDialog', '$mdUtil', '$mdSidenav', '$log', 'Auth', '$location'];
+    WilUserMenuCtrl.$inject = ['$scope', '$mdDialog', '$mdUtil', '$mdSidenav', 
+        '$log', 'Auth', '$location', '$http'];
 
-    function WilUserMenuCtrl ($scope, $mdDialog, $mdUtil, $mdSidenav, $log, Auth, $location) {
+    function WilUserMenuCtrl ($scope, $mdDialog, $mdUtil, $mdSidenav, $log, 
+        Auth, $location, $http) {
         var vm = this;
 
         var originatorEv;
@@ -70,8 +72,21 @@ angular.module('app.components.wilUserMenu', [])
         };
 
         $scope.logout = function () {
-            Auth.logout();
-            $location.path('/login');
+            // Unauthenticate with firebase.  This is a synchronous call.
+            Auth.logout(); 
+
+            // Unauthenticate with server.
+            $http({
+                method: 'POST',
+                url: '/logout'
+            })
+            .then(function (response) {
+                console.log('server logout:', response.status);
+                $location.path('/');
+            })
+            .catch(function (error) {
+                console.log('error!');
+            });
         };
     }
 })();

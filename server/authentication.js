@@ -43,7 +43,7 @@ passport.use(new LocalStrategy(
         .catch(function (error) {
             console.log('catch', error);
 
-            // Check if authentication failed due to invalide credentials.
+            // Check if authentication failed due to invalid credentials.
             // If so, respond with a 401 status code.
             // If authentication failed due to an error in the code or
             // firebase request, then respond with a legit 500 status code.
@@ -115,8 +115,11 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
     res.end();
 });
 
-router.get('/logout', function (req, res) {
+router.post('/logout', function (req, res) {
     console.log('logging out');
+
+    req.logout();
+
     res.status(200);
     res.end();
 });
