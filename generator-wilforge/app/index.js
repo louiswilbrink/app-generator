@@ -2,6 +2,15 @@ var generators = require('yeoman-generator');
 
 
 module.exports = generators.Base.extend({
+    paths: function () {
+        console.log('the destination folder is:', this.destinationRoot());
+    },
+    writing: function () {
+        this.fs.copyTpl(
+            this.templatePath('test.html'),
+            this.destinationPath('public/test.html');
+        );
+    },
     prompting: function () {
         var done = this.async();
 
