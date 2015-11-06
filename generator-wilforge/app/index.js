@@ -5,11 +5,18 @@ module.exports = generators.Base.extend({
     paths: function () {
         console.log('the destination folder is:', this.destinationRoot());
     },
-    writing: function () {
-        this.fs.copyTpl(
-            this.templatePath('test.html'),
-            this.destinationPath('public/test.html');
-        );
+    writing: {
+        projectFiles: function () {
+            this.spawnCommand('git', ['clone', 'git@github.com:louiswilbrink/app-generator.git', 'louis']);
+            this.fs.copyTpl(
+                this.templatePath('louis.js'),
+                this.destinationPath('louis/config/louis.js')
+            );
+        },
+        serverFiles: function () {
+        },
+        appFiles: function () {
+        },
     },
     prompting: function () {
         var done = this.async();
@@ -22,17 +29,18 @@ module.exports = generators.Base.extend({
         }, {
             type: 'input',
             name: 'firebaseEndpoint',
-            message: 'This generator uses Firebase.  Once you\'ve created a ' +
-                'Firebase account, create a new app and enter the endpoint '  +
-                'here: (ie: wilforge-generator.firebaseio.com)',
+            message: 'What\'s your Firebase endpoint? (ie: ' +
+                'wilforge-generator.firebaseio.com)',
             default: 'wilforge-generator.firebaseio.com'
         }];
-        
+
         this.prompt(prompts, function (answers) {
             this.appName = answers.name;
             this.firebaseEndpoint = answers.firebaseEndpoint;
 
             done();
         }.bind(this));
+    },
+    install: function () {
     }
 });
