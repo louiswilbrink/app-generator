@@ -3,36 +3,36 @@
     <form name="loginForm" ng-submit="vm.onLogin(vm.email, vm.password)">
         <md-content class="md-padding">
             <md-card>
-              <md-toolbar>
-                  <div class="md-toolbar-tools">
-                    <span>Application Name</span>
-                  </div>
-              </md-toolbar>
-              <md-card-content>
-                  <!-- EMAIL FIELD -->
-                  <md-subheader ng-if="vm.isUnauthorized" class="md-warn">
-                      Whoops, something's not right.
-                  </md-subheader>
-                  <md-input-container>
-                      <label>Email</label>
-                      <input name="email" type="email" required ng-model="vm.email">
-                      <div ng-messages="loginForm.email.$error">
-                          <div ng-message="required">This is required.</div>
-                          <div ng-message="email">Your email address is invalid</div>
-                      </div>
-                  </md-input-container>
-                  <!-- PASSWORD FIELD -->
-                  <md-input-container>
-                      <label>Password</label>
-                      <input name="password" type="password" required ng-model="vm.password">
-                      <div ng-messages="loginForm.password.$error">
-                          <div ng-message="required">This is required.</div>
-                      </div>
-                  </md-input-container>
-              </md-card-content>
-              <div class="md-actions" layout="row" layout-align="end center">
-                <md-button type="submit">Sign In</md-button>
-              </div>
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                      <span>Application Name</span>
+                    </div>
+                </md-toolbar>
+                <md-card-content layout="column">
+                    <md-subheader ng-if="vm.isUnauthorized" class="md-warn" flex>
+                        Whoops, something's not right.
+                    </md-subheader>
+                    <!-- EMAIL FIELD -->
+                    <md-input-container class="first" flex>
+                        <label>Email</label>
+                        <input name="email" type="email" required ng-model="vm.email">
+                        <div ng-messages="loginForm.email.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="email">Your email address is invalid</div>
+                        </div>
+                    </md-input-container flex>
+                    <!-- PASSWORD FIELD -->
+                    <md-input-container class="last" flex>
+                        <label>Password</label>
+                        <input name="password" type="password" required ng-model="vm.password">
+                        <div ng-messages="loginForm.password.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </md-card-content>
+                <div class="md-actions" layout="row" layout-align="end center">
+                  <md-button type="submit">Sign In</md-button>
+                </div>
             </md-card>
         </md-content>
     </form>

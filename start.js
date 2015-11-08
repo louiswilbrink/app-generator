@@ -34,5 +34,5 @@ app.use(appRoutes);
  * START WEBSERVER
  *****************************************************************************/
 
-app.listen(8080);
-console.log('Listening on 8080');
+app.listen(config.port);
+console.log('Listening on ' + config.port);

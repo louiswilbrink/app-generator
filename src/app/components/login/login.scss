@@ -3,4 +3,24 @@
     max-width: 350px;
     margin-left: auto;
     margin-right: auto;
+    form {
+        md-content {
+            md-card {
+                md-card-content {
+                    .md-subheader {
+                        min-height: 20px;
+                        margin-bottom: 20px;
+                    }
+                    md-input-container.first {
+                        min-height: 35px;
+                        margin-top: 35px;
+                        margin-bottom: 25px;
+                    }
+                    md-input-container.last {
+                        min-height: 35px;
+                    }
+                }
+            }
+        }
+    }
 }
