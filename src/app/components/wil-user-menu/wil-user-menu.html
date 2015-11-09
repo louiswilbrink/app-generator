@@ -1,21 +1,21 @@
 <md-menu md-position-mode="target-right target">
-    <md-button class="md-icon-button" aria-label="Settings" 
+    <md-button class="md-icon-button" aria-label="open user menu" 
         ng-click="vm.openMenu($mdOpenMenu, $event)">
         <md-icon md-svg-icon="images/icons/ic_person_24px.svg"></md-icon>
     </md-button>
     <md-menu-content width="4">
         <md-menu-item>
-            <md-button ng-click="showMessages($event)">Messages</md-button>
+            <md-button ng-click="vm.showMessages($event)">Messages</md-button>
         </md-menu-item>
         <md-menu-item>
-            <md-button ng-click="showAdvanced($event)">Profile</md-button>
+            <md-button ng-click="vm.showProfile($event)">Profile</md-button>
         </md-menu-item>
         <md-menu-item>
             <md-button>Billing</md-button>
         </md-menu-item>
         <md-divider></md-divider>
         <md-menu-item>
-            <md-button ng-click="logout()">Log Out</md-button>
+            <md-button ng-click="vm.logout()">Log Out</md-button>
         </md-menu-item>
     </md-menu-content>
 </md-menu>

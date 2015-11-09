@@ -10,7 +10,7 @@
     </div>
   </md-toolbar>
   <md-dialog-content style="max-width:800px;max-height:810px; ">
-    <div class="md-dialog-content">
+    <div class="md-dialog-content" layout="column">
         <md-input-container class="md-icon-float">
             <!-- Use floating label instead of placeholder -->
             <label>Name</label>
@@ -33,12 +33,10 @@
             <md-icon md-svg-src="images/icons/ic_place_24px.svg"></md-icon>
             <input ng-model="user.address" type="text">
         </md-input-container>
-        <md-input-container class="md-icon-float">
-            <md-datepicker ng-model="user.birthday" md-placeholder="Birthday"></md-datepicker>
-        </md-input-container>
+        <md-datepicker ng-model="user.birthday" md-placeholder="Birthday"></md-datepicker>
     </div>
   </md-dialog-content>
-  <div class="md-actions" layout="row">
+  <md-dialog-actions layout="row">
     <md-button>
         Preferences
     </md-button>

@@ -25,12 +25,12 @@ angular.module('app.components.wilUserMenu', [])
 
         var originatorEv;
 
-        vm.openMenu = function($mdOpenMenu, ev) {
+        this.openMenu = function($mdOpenMenu, ev) {
           originatorEv = ev;
           $mdOpenMenu(ev);
         };
         
-        $scope.showMessages = function(ev) {
+        vm.showMessages = function(ev) {
           // Appending dialog to document.body to cover sidenav in docs app
           // Modal dialogs should fully cover application
           // to prevent interaction outside of dialog
@@ -46,7 +46,7 @@ angular.module('app.components.wilUserMenu', [])
           );
         };
 
-        $scope.showAdvanced = function(ev) {
+        vm.showProfile = function(ev) {
           $mdDialog.show({
             controller:  function ($scope, $mdDialog) {
                 $scope.hide = function() {
@@ -71,7 +71,7 @@ angular.module('app.components.wilUserMenu', [])
           });
         };
 
-        $scope.logout = function () {
+        vm.logout = function () {
             // Unauthenticate with firebase.  This is a synchronous call.
             Auth.logout(); 
 
