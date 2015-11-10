@@ -30,6 +30,7 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
     "lodash": "^3.10.1",
+    "mandrill-api": "^1.0.45",
     "material-design-icons": "^2.0.0",
     "mdi": "^1.2.65",
     "mongoose": "^4.1.3",
