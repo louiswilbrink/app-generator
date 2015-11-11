@@ -11,7 +11,7 @@ var config          = require('../config/configuration').getConfig();
 router.use(morgan('dev'));
 
 // Attach mandrill api key.
-var mandrill        = new mandrillPackage.Mandrill(config.mandrillApiKey);
+var mandrill = new mandrillPackage.Mandrill(config.mandrillApiKey);
 
 /******************************************************************************
 * METHODS
@@ -19,9 +19,12 @@ var mandrill        = new mandrillPackage.Mandrill(config.mandrillApiKey);
 
 function sendConfirmationEmail (email) {
     var message = {
-        'html': '<p>Example HTML content</p>',
-        'text': 'Example text content',
-        'subject': 'example subject',
+        'html': '<h1 style="text-align: center">Example HTML content</h1>' +
+                '<p>Please confirm your email by clicking ' +
+                '<a href="http://' + config.domain + ':' + config.port +
+                '/confirm-email">confirm.</a></p>',
+        'text': 'Confirmation Email',
+        'subject': 'App Name - Email Confirmation',
         'from_email': 'generator@wilforge.com',
         'from_name': 'Generator Wilforge',
         'to': [{
@@ -48,6 +51,11 @@ function sendConfirmationEmail (email) {
 /******************************************************************************
 * ROUTES
 ******************************************************************************/
+
+router.get('/confirm-email', function (req, res) {
+    console.log('/confirm-email');
+    res.status(200).end();
+});
 
 router.post('/send-confirmation-email', function (req ,res) {
     console.log('/send-confirmation-email', req.body);
