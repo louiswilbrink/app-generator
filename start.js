@@ -4,11 +4,13 @@ var bodyParser    = require('body-parser');
 var mongoose      = require('mongoose');
 var argv          = require('yargs').argv;
 var morgan        = require('morgan');
+var async         = require('async');
 
 var app           = express();
 var authRoutes    = require('./server/authentication');
 var emailRoutes   = require('./server/email');
 var appRoutes     = require('./server/routes');
+var db            = require('./server/db');
 
 var config        = require('./config/configuration').getConfig();
 
@@ -29,6 +31,16 @@ app.use(bodyParser.json())
 app.use(authRoutes);
 app.use(emailRoutes);
 app.use(appRoutes);
+
+// Initialize server scripts.
+async.parallel([db.init], function (error, result) {
+
+    if (error) {
+        return console.log('async error:', error);
+    }
+
+    console.log('async result', result);
+});
 
 /******************************************************************************
  * START WEBSERVER

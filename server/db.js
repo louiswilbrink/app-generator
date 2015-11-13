@@ -1,6 +1,7 @@
 // Dependencies.
 var Firebase = require('firebase');
 var q        = require('q');
+var _        = require('lodash');
 var config   = require('../config/configuration').getConfig();
 
 // Initialize private variables.
@@ -11,11 +12,14 @@ var dbRef = new Firebase(config.firebaseEndpoint);
 // Configure Firebase references.
 var usersRef = new Firebase(config.firebaseEndpoint + '/users');
 
-usersRef.on('value', function (snapshot) {
-    users = snapshot.val();
-});
+// Get updates on usersRef.
 
 var db = {
+    init: function () {
+        return usersRef.on('value', function (snapshot) {
+            users = snapshot.val();
+        });
+    },
     addUser: function (uid, email) {
         console.log('db.addUser', uid, email);
 
@@ -57,6 +61,28 @@ var db = {
         });
 
         return user.promise;
+    },
+    updateConfirmationNumber: function (id, confirmationNumber) {
+        usersRef.child(id).update({
+            confirmationNumber: confirmationNumber
+        }, function (error) {
+            if (error) {
+                console.log('Error updating confirmation number:', error);
+            }
+        });
+    },
+    getUserIdByEmail: function (email) {
+        var id;
+
+        // Search users list and check each email.
+        _.forEach(users, function (user, key) {
+            if (user.email === email) {
+                id = key; // Save key as id.
+                return;   // Break out of loop.
+            }
+        });
+
+        return id;
     },
     doesUserExist: function (id) {
         // Check if user is in local users object..
