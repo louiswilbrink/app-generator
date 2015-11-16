@@ -25,15 +25,15 @@ function sendConfirmationEmail (email) {
     return db.getConfirmationId(userId).then(function (confirmationId) {
 
         var message = {
-           'html': '<h1 style="text-align: center">Example HTML content</h1>' +
+           'html': '<h1 style="text-align: center">Email Confirmation</h1>' +
                     '<p>Please confirm your email by clicking ' +
                     '<a href="http://' + config.domain + ':' + config.port +
                     '/confirm-email/' + confirmationId + '/' + email +
                     '">confirm.</a></p>',
             'text': 'Confirmation Email',
-            'subject': 'App Name - Email Confirmation',
-            'from_email': 'generator@wilforge.com',
-            'from_name': 'Generator Wilforge',
+            'subject': config.appName + ' Email Confirmation',
+            'from_email': config.infoEmailAddress,
+            'from_name': 'The Team at ' + config.appName,
             'to': [{
                 'email': email,
                 'name': 'New User',
@@ -88,15 +88,16 @@ router.get('/confirm-email/:confirmationId/:email', function (req, res) {
 
         // Generate server response.  
         if (isCorrectConfirmationId) {
-            console.log('confirmation Ids match!');
-
             // Update confirmed status in db.
             db.updateIsEmailConfirmed(userId, true); 
 
-            res.status(200).end();
+            console.log('[sent] email-confirmed.html');
+            res.sendFile('email-confirmed.html', { 
+                root: config.rootDir + '/server/views/'
+            });
         }
         else {
-            console.log('confirmation Ids do not match!');
+            console.log('Email address NOT confirmed. (' + email + ')');
             res.status(401).end(); // The confirmation number didnt match.
         }
 
@@ -108,11 +109,11 @@ router.post('/send-confirmation-email', function (req ,res) {
 
     sendConfirmationEmail(req.body.email).then(function (isMessageSent) {
         if (isMessageSent) {
-            console.log('sent email successfully');
+            console.log('[sent] confirmation email');
             res.status(200).end();
         }
         else {
-            res.status(401).end(); // TODO: add error message
+            res.status(401).end(); 
         }
     });
 });

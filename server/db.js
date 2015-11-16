@@ -73,6 +73,7 @@ var db = {
         usersRef.child(uid).once('value', function (snapshot) {
             confirmationId.resolve(snapshot.val().confirmationId);
         }, function (error) {
+            console.log('Error retrieving user confirmation id:', error);
             confirmationId.reject(error);
         });
 
@@ -82,10 +83,7 @@ var db = {
         usersRef.child(uid).update({
             isEmailConfirmed: isEmailConfirmed
         }, function (error) {
-            if (!error) {
-                console.log('update successful (user.isEmailConfirmed)');
-            }
-            else {
+            if (error) {
                 console.log('Error updating isEmailConfirmed:', error);
             }
         });

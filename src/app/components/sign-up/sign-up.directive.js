@@ -46,10 +46,8 @@ angular.module('app.components.signUp', [])
             .then(function (response) { 
                 // TODO: Set user service
                 console.log('/register user (200):', response.data.uid);
-                vm.isLoading = false;
             }, function (error) {
                 console.log('/register user (500):', error);
-                vm.isLoading = false;
                 vm.isUnauthorized = true;
             })
             // .. then authenticate with the server.
