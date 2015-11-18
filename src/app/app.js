@@ -30,10 +30,12 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
                         $location.path('/');
                     });
             },
-            firebaseAuth: function (Auth, $location) {
+            firebaseAuth: function (Auth, User, $location) {
                 return Auth.getAuthAsPromise()
                     .then(function (authState) {
                         console.log('[firebase] - authenticated');
+                        // Populate User data: name, email, etc..
+                        User.init(authState.uid);
                     })
                     .catch(function (error) {
                         console.log('[firebase] - unauthenticated');

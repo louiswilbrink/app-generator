@@ -4,30 +4,50 @@
 angular.module('app.services.user', ['firebase'])
     .service('User', userService);
 
-    userService.$inject = [];
+    userService.$inject = ['$timeout'];
 
-    var name = 'louis', 
-        email = 'lw@lw.com',
-        phone = '555-1234', 
-        address = '123 Fake Street', 
-        birthday = new Date();
+    function userService ($timeout) {
 
-    function userService () {
+        var ref = new Firebase('https://wilforge-generator.firebaseio.com/');
+        var userRef;
+
+        var info = {
+            name: null,
+            email : null,
+            phone : null,
+            address : null,
+            birthday : null
+        };
+
         return {
+            init: function (uid) {
+                userRef = ref.child('users').child(uid);
+
+                userRef.once('value', function (snapshot) {
+                    var dbInfo = snapshot.val();
+                    
+                    info.name = dbInfo.name;
+                    info.email = dbInfo.email;
+                    info.phone = dbInfo.phone;
+                    info.address = dbInfo.address;
+                    info.birthday = dbInfo.birthday;
+                });
+            },
+            info: info,
             getName: function () {
-                return name;
+                return info.name;
             },
             getEmail: function () {
-                return email;
+                return info.email;
             },
             getPhone: function () {
-                return phone;
+                return info.phone;
             },
             getAddress: function () {
-                return address;
+                return info.address;
             },
             getBirthday: function () {
-                return birthday;
+                return info.birthday;
             }
         }
     };
