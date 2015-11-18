@@ -36,7 +36,8 @@ angular.module('app.components.wilUserMenu', [])
           // to prevent interaction outside of dialog
           $mdDialog.show(
             $mdDialog.alert()
-              .parent(angular.element(document.querySelector('#popupContainer')))
+              .parent(
+                  angular.element(document.querySelector('#popupContainer')))
               .clickOutsideToClose(true)
               .title('Messages')
               .content('You have no unread messages.  Good job!')
@@ -48,27 +49,13 @@ angular.module('app.components.wilUserMenu', [])
 
         vm.showProfile = function(ev) {
           $mdDialog.show({
-            controller:  function ($scope, $mdDialog) {
-                $scope.hide = function() {
-                    $mdDialog.hide();
-                };
-                $scope.cancel = function() {
-                    $mdDialog.cancel();
-                };
-                $scope.answer = function(answer) {
-                    $mdDialog.hide(answer);
-                };
-            },
-            templateUrl: 'components/wil-user-menu/dialog-templates/user-profile.html',
+            controller:  'UserProfileCtrl',
+            templateUrl: 
+                'components/wil-user-menu/dialog-templates/user-profile.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true
+            clickOutsideToClose: true
           })
-          .then(function(answer) {
-            $scope.status = 'You said the information was "' + answer + '".';
-          }, function() {
-            $scope.status = 'You cancelled the dialog.';
-          });
         };
 
         vm.logout = function () {
