@@ -8,11 +8,16 @@ angular.module('generatedApp')
 
     $scope.user = {};
 
+    $scope.$watch('user', function (newValue, oldValue) {
+        console.log(oldValue, newValue);
+    });
+
     // Watch for initialization/changes in user info.
     $scope.$watch(function watchUser () {
         return User.info;
     }, function () {
         console.log('User.info changed');
+
         $scope.user = {
             name: User.getName(),
             phone: User.getPhone(),
