@@ -5,8 +5,26 @@ angular.module('generatedApp')
     function DashboardCtrl ($scope, $mdDialog, User, $timeout) {
 
     // Populate with existing info.  
-
     $scope.user = {};
+
+    /*
+     * param: string
+     * return: none
+     *
+     * notes: sends new user info to the user service.
+     */
+    $scope.updateUser = function ($event) {
+        var field = $event.target.name;
+        console.log('updating user', $event, field);
+
+        if ($event.keyCode === 13) {
+            console.log('enter pressed!');
+            // put focus on 'close' button afterwards
+        }
+        else if ($event.type === 'blur') {
+            console.log('blur');
+        }
+    };
 
     $scope.$watch('user', function (newValue, oldValue) {
         console.log(oldValue, newValue);
