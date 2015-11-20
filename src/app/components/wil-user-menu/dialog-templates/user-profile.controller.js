@@ -17,6 +17,10 @@ angular.module('generatedApp')
         var field = $event.target.name;
         console.log('updating user', $event, field);
 
+        // During update, toggle progress bar ON.
+        $scope.user['is' + _.startCase(field) + 'Edited'] = true;
+        console.log($scope.user);
+
         if ($event.keyCode === 13) {
             console.log('enter pressed!');
             // put focus on 'close' button afterwards
@@ -34,10 +38,15 @@ angular.module('generatedApp')
 
         $scope.user = {
             name: User.getName(),
+            isNameEdited: false,
             phone: User.getPhone(),
+            isPhoneEdited: false,
             email: User.getEmail(),
+            isEmailEdited: false,
             address: User.getAddress(),
-            birthday: User.getBirthday()
+            isAddressEdited: false,
+            birthday: User.getBirthday(),
+            isBirthdayEdited: false  
         };
     }, true);
 

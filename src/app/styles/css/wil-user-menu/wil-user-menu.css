@@ -1,5 +1,9 @@
 .user-profile-container {
   min-width: 420px; }
+  .user-profile-container form md-dialog-content md-input-container {
+    height: 38px; }
+    .user-profile-container form md-dialog-content md-input-container md-progress-linear {
+      top: -1px; }
   .user-profile-container form md-dialog-content .datepicker-progress-bar {
     width: 120px;
     top: -10px;
