@@ -1,5 +1,9 @@
 .user-profile-container {
   min-width: 420px; }
+  .user-profile-container form md-dialog-content .datepicker-progress-bar {
+    width: 120px;
+    top: -10px;
+    left: 36px; }
 
 md-datepicker button.md-datepicker-button.md-button.md-icon-button {
   margin-left: -11px;

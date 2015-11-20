@@ -8,7 +8,7 @@ angular.module('generatedApp')
     $scope.user = {};
 
     /*
-     * param: string
+     * params: string
      * return: none
      *
      * notes: sends new user info to the user service.
@@ -25,10 +25,6 @@ angular.module('generatedApp')
             console.log('blur');
         }
     };
-
-    $scope.$watch('user', function (newValue, oldValue) {
-        console.log(oldValue, newValue);
-    });
 
     // Watch for initialization/changes in user info.
     $scope.$watch(function watchUser () {

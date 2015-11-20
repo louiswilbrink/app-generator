@@ -1,5 +1,14 @@
 .user-profile-container {
     min-width: 420px;
+    form {
+        md-dialog-content {
+            .datepicker-progress-bar {
+                width: 120px;
+                top: -10px;
+                left: 36px;
+            }
+        }
+    }
 }
 
 md-datepicker {

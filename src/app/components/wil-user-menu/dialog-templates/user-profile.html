@@ -1,49 +1,68 @@
 <md-dialog class="user-profile-container" aria-label="User Profile" ng-cloak>
-  <form>
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>User Profile</h2>
-      <span flex></span>
-      <md-button class="md-icon-button" ng-click="cancel()">
-        <md-icon md-svg-src="images/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-      </md-button>
-    </div>
-  </md-toolbar>
-  <md-dialog-content style="max-width:800px;max-height:810px; ">
-    <div class="md-dialog-content" layout="column">
-        <md-input-container class="md-icon-float">
-            <!-- Use floating label instead of placeholder -->
-            <label>Name</label>
-            <md-icon md-svg-src="images/icons/ic_person_24px.svg" class="name"></md-icon>
-            <input name="name" ng-model="user.name" ng-keyup="$event.keyCode == 13 && updateUser($event)" ng-blur="updateUser($event)" type="text">
-        </md-input-container>
-        <md-input-container class="md-icon-float">
-            <label>Phone</label>
-            <md-icon md-svg-src="images/icons/ic_phone_24px.svg"></md-icon>
-            <input name="phone" ng-model="user.phone" ng-keyup="$event.keyCode == 13 && updateUser($event)" ng-blur="updateUser($event)" type="text">
-        </md-input-container>
-        <md-input-container class="md-icon-float">
-            <!-- Use floating placeholder instead of label -->
-            <label>Email</label>
-            <md-icon md-svg-src="images/icons/ic_email_24px.svg" class="email"></md-icon>
-            <input name="email" ng-model="user.email" ng-keyup="$event.keyCode == 13 && updateUser($event)" ng-blur="updateUser($event)" type="email" ng-required="true">
-        </md-input-container>
-        <md-input-container class="md-icon-float">
-            <label>Address</label>
-            <md-icon md-svg-src="images/icons/ic_place_24px.svg"></md-icon>
-            <input name="address" ng-model="user.address" ng-keyup="$event.keyCode == 13 && updateUser($event)" ng-blur="updateUser($event)" type="text">
-        </md-input-container>
-        <md-datepicker name="birthday" ng-model="user.birthday" ng-keyup="$event.keyCode == 13 && updateUser($event)" ng-blur="updateUser($event)" md-placeholder="Birthday"></md-datepicker>
-    </div>
-  </md-dialog-content>
-  <md-dialog-actions layout="row">
-    <md-button>
-        Preferences
-    </md-button>
-    <span flex></span>
-    <md-button ng-click="close()" style="margin-right:20px;" >
-        Close
-    </md-button>
-  </div>
-  </form>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>User Profile</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                  <md-icon md-svg-src="images/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="max-width:800px;max-height:810px; ">
+            <div class="md-dialog-content" layout="column">
+                <md-input-container class="md-icon-float">
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Name</label>
+                    <md-icon md-svg-src="images/icons/ic_person_24px.svg" class="name"></md-icon>
+                    <input name="name" ng-model="user.name" 
+                        ng-keyup="$event.keyCode == 13 && updateUser($event)" 
+                        ng-blur="updateUser($event)" type="text">
+                    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <label>Phone</label>
+                    <md-icon md-svg-src="images/icons/ic_phone_24px.svg"></md-icon>
+                    <input name="phone" ng-model="user.phone" 
+                        ng-keyup="$event.keyCode == 13 && updateUser($event)" 
+                        ng-blur="updateUser($event)" type="text">
+                    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <!-- Use floating placeholder instead of label -->
+                    <label>Email</label>
+                    <md-icon md-svg-src="images/icons/ic_email_24px.svg" class="email"></md-icon>
+                    <input name="email" ng-model="user.email" 
+                        ng-keyup="$event.keyCode == 13 && updateUser($event)" 
+                        ng-blur="updateUser($event)" type="email" ng-required="true">
+                    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <label>Address</label>
+                    <md-icon md-svg-src="images/icons/ic_place_24px.svg"></md-icon>
+                    <input name="address" 
+                        ng-model="user.address" 
+                        ng-keyup="$event.keyCode == 13 && updateUser($event)" 
+                        ng-blur="updateUser($event)" type="text">
+                    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+                </md-input-container>
+                <md-datepicker name="birthday" ng-model="user.birthday" 
+                    ng-keyup="$event.keyCode == 13 && updateUser($event)" 
+                    ng-blur="updateUser($event)" md-placeholder="Birthday">
+                </md-datepicker>
+                <md-progress-linear class="datepicker-progress-bar" 
+                    md-mode="indeterminate">
+                </md-progress-linear>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button>
+                Preferences
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="close()" style="margin-right:20px;" >
+                Close
+            </md-button>
+        </md-dialo-actions>
+    </form>
 </md-dialog>
