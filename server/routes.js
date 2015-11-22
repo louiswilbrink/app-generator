@@ -10,6 +10,36 @@ var config        = require('../config/configuration').getConfig();
 router.use(morgan('dev'));
 
 /*******************************************************
+ * ROUTES
+ ******************************************************/
+
+/*
+ * Notes:
+ * Once the client is loaded, the application will require configuration values
+ * found in `server/configuration.js`.  The client will request these values
+ * using the `/app-configuration` route, receiving a JSON object containing
+ * the configuration values.
+ * Important: only client-specific values will be sent; not all configuration
+ * values should be sent to the client, especially platform keys or session
+ * secret.
+ */
+router.get('/app-configuration', function (req, res) {
+    console.log('/app-configuration');
+
+    if (!config.appName) {
+        res.status(500).json({
+            message: 'No application name specified'
+        });
+    }
+    else {
+        res.status(200).json({
+            appName: config.appName
+        });
+    }
+    res.end();
+});
+
+/*******************************************************
  * SERVE INDEX.HTML
  ******************************************************/
 

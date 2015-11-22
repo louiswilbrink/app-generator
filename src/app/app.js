@@ -4,14 +4,19 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
     'app.services.auth', 'app.components.login', 'app.components.signUp', 
     'app.components.wilToolbar', 'app.directives.progress', 
     'app.components.wilSidenav', 'app.components.wilUserMenu',
-    'app.services.user', 'app.services.toast'])
+    'app.services.user', 'app.services.toast', 'app.services.config'])
     .config(function ($routeProvider) {
 
     /**************************************************
     * Route Configuration
     **************************************************/
     $routeProvider.when('/', {
-        templateUrl: 'pages/login.html'
+        templateUrl: 'pages/login.html',
+        resolve: {
+          config: function (Config) {
+              return Config.init();
+          }
+        },
     })
     .when('/sign-up', {
         templateUrl: 'pages/sign-up.html'
