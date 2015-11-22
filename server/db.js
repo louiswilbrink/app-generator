@@ -30,6 +30,7 @@ var db = {
         usersRef.child(uid).set({
             email: email,
             confirmationId: randomString.generate(10),
+            birthday: 'January 1, 1970 00:00:00',
             isEmailConfirmed: false
         });
     },
