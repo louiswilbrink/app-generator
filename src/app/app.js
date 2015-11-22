@@ -4,7 +4,7 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
     'app.services.auth', 'app.components.login', 'app.components.signUp', 
     'app.components.wilToolbar', 'app.directives.progress', 
     'app.components.wilSidenav', 'app.components.wilUserMenu',
-    'app.services.user'])
+    'app.services.user', 'app.services.toast'])
     .config(function ($routeProvider) {
 
     /**************************************************

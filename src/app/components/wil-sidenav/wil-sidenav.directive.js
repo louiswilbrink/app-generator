@@ -14,9 +14,10 @@ angular.module('app.components.wilSidenav', [])
         };
     }
 
-    WilSidenavCtrl.$inject = ['$scope', '$mdSidenav', '$log', '$mdToast'];
+    WilSidenavCtrl.$inject = ['$scope', '$mdSidenav', '$log', 
+        '$mdToast', 'Toast'];
 
-    function WilSidenavCtrl ($scope, $mdSidenav, $log, $mdToast) {
+    function WilSidenavCtrl ($scope, $mdSidenav, $log, $mdToast, Toast) {
         var vm = this;
 
         vm.close = function () {
@@ -26,38 +27,8 @@ angular.module('app.components.wilSidenav', [])
             });
         };
 
-        var last = {
-            bottom: false,
-            top: true,
-            left: false,
-            right: true
-        };
-
-        function sanitizePosition() {
-            var current = vm.toastPosition;
-            if ( current.bottom && last.top ) current.top = false;
-            if ( current.top && last.bottom ) current.bottom = false;
-            if ( current.right && last.left ) current.left = false;
-            if ( current.left && last.right ) current.right = false;
-            last = angular.extend({},current);
-        }
-
-        vm.toastPosition = angular.extend({},last);
-
-        vm.getToastPosition = function() {
-          sanitizePosition();
-          return Object.keys(vm.toastPosition)
-            .filter(function(pos) { return vm.toastPosition[pos]; })
-            .join(' ');
-        };
-
         vm.toast = function(message) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content(message)
-                    .position(vm.getToastPosition())
-                    .hideDelay(3000)
-            );
+            Toast.simple(message);
         };
     }
 })();

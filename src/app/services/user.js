@@ -4,9 +4,9 @@
 angular.module('app.services.user', ['firebase'])
     .service('User', userService);
 
-    userService.$inject = ['$timeout'];
+    userService.$inject = ['$timeout', '$q'];
 
-    function userService ($timeout) {
+    function userService ($timeout, $q) {
 
         // Create top-level and users level firebase references.
         var ref = new Firebase('https://wilforge-generator.firebaseio.com/');
@@ -36,7 +36,6 @@ angular.module('app.services.user', ['firebase'])
 
                 // Subscribe to user info updates.
                 userRef.on('value', function (snapshot) {
-                    console.log('user info changed!', snapshot.val());
 
                     var dbInfo = snapshot.val();
                     
@@ -44,30 +43,35 @@ angular.module('app.services.user', ['firebase'])
                     info.email = dbInfo.email;
                     info.phone = dbInfo.phone;
                     info.address = dbInfo.address;
-                    info.birthday = dbInfo.birthday;
+                    info.birthday = new Date('December 17, 1995 03:24:00');
                 });
             },
             /*
-             * notes: this object will be watched by controllers that display
-             * or update user information.  It is a private variable of the
-             * service, and will be updated using setter methods, or by 
-             * changes made in firebase (by use of subscriptions).
+             * notes: this object will be directly assigned to $scope variables
+             * inside Controllers whose corresponding Views require interaction
+             * with user info (ie: user profile).
+             * 
+             * Rule for Controllers:
+             * The ViewModel is allowed to change this Service data only 
+             * through form interactions.
              */
             info: info,
-            getName: function () {
-                return info.name;
-            },
-            getEmail: function () {
-                return info.email;
-            },
-            getPhone: function () {
-                return info.phone;
-            },
-            getAddress: function () {
-                return info.address;
-            },
-            getBirthday: function () {
-                return info.birthday;
+            saveInfo: function () {
+                // Convert any null values into empty string.
+                _.forIn(info, function (value, key) {
+                    if (!value) {
+                        info[key] = '';
+                    }
+                });
+
+                // Return a promise to wait for update resuls.
+                var isUserUpdated = $q.defer();
+
+                userRef.update(info, function () {
+                    isUserUpdated.resolve(true);
+                });
+
+                return isUserUpdated.promise;
             }
         }
     };
