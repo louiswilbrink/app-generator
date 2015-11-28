@@ -81,23 +81,30 @@ var db = {
         return confirmationId.promise;
     },
     updateIsEmailConfirmed: function (uid, isEmailConfirmed) {
+        var isUpdated = q.defer();
+
         usersRef.child(uid).update({
             isEmailConfirmed: isEmailConfirmed
         }, function (error) {
             if (error) {
-                console.log('Error updating isEmailConfirmed:', error);
+                isUpdated.reject(error);
+            }
+            else {
+                isUpdated.resolve(true);
             }
         });
+
+        return isUpdated.promise;
     },
     isCorrectConfirmationId: function (uid, confirmationIdComp) {
         var isCorrect = q.defer();
 
         this.getConfirmationId(uid).then(function (confirmationId) {
-            if (confirmationId ===  confirmationIdComp) {
+            if (confirmationId === confirmationIdComp) {
                 isCorrect.resolve(true);
             }
             else {
-                isCorrect.resolve(false);
+                isCorrect.reject();
             }
         });
 

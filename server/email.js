@@ -73,6 +73,13 @@ router.get('/confirm-email/:confirmationId/:email', function (req, res) {
     var email = req.params.email;
     var userId = db.getUserIdByEmail(email);
 
+    // Check if valid, existent userId.
+    if (!userId) {
+        console.log('No userId found for that email');
+        res.status(401).end();
+        return;
+    }
+
     // Check for parameter values, abort if missing.
     if (!confirmationId || !email) {
         console.log('Error: cannot confirm email, missing confirmation ' +
@@ -89,19 +96,30 @@ router.get('/confirm-email/:confirmationId/:email', function (req, res) {
         // Generate server response.  
         if (isCorrectConfirmationId) {
             // Update confirmed status in db.
-            db.updateIsEmailConfirmed(userId, true); 
-
-            console.log('[sent] email-confirmed.html');
-            res.sendFile('email-confirmed.html', { 
-                root: config.rootDir + '/server/views/'
-            });
+            return db.updateIsEmailConfirmed(userId, true);
         }
         else {
             console.log('Email address NOT confirmed. (' + email + ')');
             res.status(401).end(); // The confirmation number didnt match.
         }
-
+    })
+    .then(function (isUpdated) {
+        console.log('[sent] email-confirmed.html');
+        // If db update successful, send the confirmation web page.
+        res.sendFile('email-confirmed.html', { 
+            root: config.rootDir + '/server/views/'
         });
+    })
+    .catch(function (error) {
+        // If error saving confirmation update status, send 500 
+        // response.
+        console.log('Error updating user.isEmailConfirmed:', email, error);
+        res.status(500);
+        res.sendFile('email-confirmed-error.html', {
+            root: config.rootDir + '/server/views/'
+        });
+    });
+
 });
 
 router.post('/send-confirmation-email', function (req ,res) {
