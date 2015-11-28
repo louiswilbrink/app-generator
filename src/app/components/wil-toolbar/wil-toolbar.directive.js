@@ -15,11 +15,13 @@ angular.module('app.components.wilToolbar', [])
         };
     }
 
-    WilToolbarCtrl.$inject = ['$mdDialog', '$mdUtil', '$mdSidenav', '$log'];
+    WilToolbarCtrl.$inject = ['$mdDialog', '$mdUtil', '$mdSidenav', 
+        'Config', '$log'];
 
-    function WilToolbarCtrl ($mdDialog, $mdUtil, $mdSidenav, $log) {
+    function WilToolbarCtrl ($mdDialog, $mdUtil, $mdSidenav, Config, $log) {
         var vm = this;
 
+        vm.appName = Config.val().appName;
         vm.toggleLeft = buildToggler('left');
 
         /**

@@ -19,12 +19,20 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
         },
     })
     .when('/sign-up', {
-        templateUrl: 'pages/sign-up.html'
+        templateUrl: 'pages/sign-up.html',
+        resolve: {
+          config: function (Config) {
+              return Config.init();
+          }
+        }
     })
     .when('/dashboard', {
         templateUrl: 'pages/dashboard.html',
         controller: 'DashboardCtrl',
         resolve: {
+            config: function (Config) {
+                return Config.init();
+            },
             serverAuth: function ($http, $location) {
                 return $http.get('/is-authenticated')
                     .success(function (payload) {
