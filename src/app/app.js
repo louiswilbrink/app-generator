@@ -16,7 +16,7 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
             config: function (Config) {
                 return Config.init();
             },
-            isAuthenticatedLouis: function ($http, $location, Auth, $q, User) {
+            isAuthenticated: function ($http, $location, Auth, $q, User) {
 
                 var isAuthenticated = $q.defer();
                 
