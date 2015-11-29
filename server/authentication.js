@@ -29,11 +29,10 @@ router.use(passport.session());
  ******************************************************/
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log('employing local strategy:', username, password);
+    function(username, password, done) {
+        console.log('employing local strategy:', username, password);
 
-    return db.auth(username, password)
-        .then(function (id) {
+        return db.auth(username, password).then(function (id) {
             return db.getUser(id);
         })
         .then(function (user) {
@@ -54,7 +53,7 @@ passport.use(new LocalStrategy(
                 return done(error);
             }
         });
-  }
+    }
 ));
 
 passport.serializeUser(function(user, done) {
