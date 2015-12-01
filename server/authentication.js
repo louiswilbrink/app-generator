@@ -109,6 +109,10 @@ router.post('/register-user', function (req, res) {
         });
 });
 
+router.post('/delete-user', function (req, res) {
+    console.log('deleting user..');
+});
+
 router.post('/login', passport.authenticate('local'), function (req, res) {
     console.log('/login');
     res.end();

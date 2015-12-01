@@ -2,13 +2,28 @@
 
 angular.module('generatedApp')
     .controller('UserSettingsCtrl', ['$scope', '$mdDialog', 'User', 
-        '$timeout', '$mdToast', 'Toast', '$log',
+        '$log', '$http',
     function UserSettingsCtrl ($scope, $mdDialog, User, 
-        $timeout, $mdToast, Toast, $log) {
-
+        $log, $http) {
 
     $scope.deleteUser = function () {
         console.log('deleteUser');
+        // Tell server to delete the sessioned user.
+
+        $http({
+            method: 'POST',
+            url: '/delete-user', 
+        })
+        .then(function (response) {
+            console.log('response', response);
+        })
+        .catch(function (error) {
+            console.log('error deleting user', error);
+        });
+
+        // unauthenticate with Firebase
+       
+        // navigate to login screen (or signup). 
     };
 
     $scope.openUserProfile = function (ev) {

@@ -31,7 +31,8 @@ var db = {
             email: email,
             confirmationId: randomString.generate(10),
             birthday: 'January 1, 1970 00:00:00',
-            isEmailConfirmed: false
+            isEmailConfirmed: false,
+            status: 'active' // or 'delete'
         });
     },
     // Registering user with firebase authentication system.
