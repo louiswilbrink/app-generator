@@ -40,8 +40,8 @@
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
-            <md-button>
-                Preferences
+            <md-button ng-click="openUserSettings($event)">
+                More
             </md-button>
             <span flex></span>
             <md-button class="md-raised md-ink-ripple" ng-class="{ 'md-accent': isEdited }" ng-click="saveClose()" style="margin-right:20px;" >

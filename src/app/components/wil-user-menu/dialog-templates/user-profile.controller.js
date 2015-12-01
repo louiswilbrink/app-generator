@@ -2,9 +2,9 @@
 
 angular.module('generatedApp')
     .controller('UserProfileCtrl', ['$scope', '$mdDialog', 'User', 
-        '$timeout', '$mdToast', 'Toast',
-    function DashboardCtrl ($scope, $mdDialog, User, 
-        $timeout, $mdToast, Toast) {
+        '$timeout', '$mdToast', 'Toast', '$log',
+    function UserProfileCtrl ($scope, $mdDialog, User, 
+        $timeout, $mdToast, Toast, $log) {
 
     // Populate with existing info.  
     $scope.user = {};
@@ -16,6 +16,18 @@ angular.module('generatedApp')
         $scope.buttonText = 'Save';
         $scope.isEdited = true;
 
+    };
+
+    $scope.openUserSettings = function (ev) {
+
+        $mdDialog.show({
+          controller:  'UserSettingsCtrl',
+          templateUrl: 
+              'components/wil-user-menu/dialog-templates/user-settings.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose: true
+        })
     };
 
     $scope.saveClose = function () {

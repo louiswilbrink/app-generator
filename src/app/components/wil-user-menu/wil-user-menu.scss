@@ -17,6 +17,23 @@
     }
 }
 
+.user-settings-container {
+    min-width: 420px;
+    md-dialog-content {
+        .md-dialog-content {
+            div {
+                button {
+                    padding-right: 12px;
+                }
+                .md-caption {
+                    margin: 0px 0px 0px 10px;
+                    line-height: 48px;
+                }
+            }
+        }
+    }
+}
+
 md-datepicker {
     button.md-datepicker-button.md-button.md-icon-button {
         margin-left: -11px;

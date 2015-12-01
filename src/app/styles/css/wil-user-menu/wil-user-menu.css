@@ -9,6 +9,14 @@
     top: -10px;
     left: 36px; }
 
+.user-settings-container {
+  min-width: 420px; }
+  .user-settings-container md-dialog-content .md-dialog-content div button {
+    padding-right: 12px; }
+  .user-settings-container md-dialog-content .md-dialog-content div .md-caption {
+    margin: 0px 0px 0px 10px;
+    line-height: 48px; }
+
 md-datepicker button.md-datepicker-button.md-button.md-icon-button {
   margin-left: -11px;
   margin-right: 0px; }
