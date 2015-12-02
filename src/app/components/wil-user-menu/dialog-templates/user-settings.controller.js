@@ -2,32 +2,53 @@
 
 angular.module('generatedApp')
     .controller('UserSettingsCtrl', ['$scope', '$mdDialog', 'User', 
-        '$log', '$http',
+        '$log', '$http', '$location', 'Auth',
     function UserSettingsCtrl ($scope, $mdDialog, User, 
-        $log, $http) {
+        $log, $http, $location, Auth) {
 
+    /**
+     * @description 
+     * Delete the user in firebase, unauthenticate with firebase, end server
+     * session.
+     */
     $scope.deleteUser = function () {
-        console.log('deleteUser');
-        // Tell server to delete the sessioned user.
 
+        // Tell server to delete the user currently in session.
         $http({
             method: 'POST',
             url: '/delete-user', 
         })
         .then(function (response) {
-            console.log('response', response);
+            // if delete user action is successful, log out of firebase and
+            // server.
+            if(response.data.isDeleted) {
+                // Close user settings dialog.
+                $mdDialog.hide(); 
+
+                // Unauthenticate with Firebase.
+                Auth.logout();
+
+                // End server session.
+                $http({
+                    method: 'POST',
+                    url: '/logout'
+                })
+                .then(function (response) {
+                    // navigate to login screen (or signup). 
+                    $location.path('/');
+                })
+                .catch(function (error) {
+                    $log.error('/logout request', error);
+                });
+            }
         })
         .catch(function (error) {
-            console.log('error deleting user', error);
+            console.log('/delete-user request', error);
         });
 
-        // unauthenticate with Firebase
-       
-        // navigate to login screen (or signup). 
     };
 
     $scope.openUserProfile = function (ev) {
-
         $mdDialog.show({
           controller:  'UserProfileCtrl',
           templateUrl: 

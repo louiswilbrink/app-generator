@@ -109,8 +109,44 @@ router.post('/register-user', function (req, res) {
         });
 });
 
+/**
+ * @description 
+ * This route handles deleting the user who is currently in the session.
+ */
 router.post('/delete-user', function (req, res) {
-    console.log('deleting user..');
+    // Check if this request was made with a user in session.
+    if (!req.user || !req.user.email) {
+        // Without a user in sesssion, no user delete action will occur.
+        res.json({ 
+            message: 'No user found in session',
+            isDeleted: false
+        }).end();
+    }
+    else {
+        // If a user exists in the session, find their uid using the email
+        // found in session and set user.status to 'inactive'.
+        var uid = db.getUserIdByEmail(req.user.email);
+
+        // Set status to 'inactive'
+        db.deleteUser(uid).then(function (isUpdated) {
+            if (isUpdated) {
+                // Notify the client that 
+                res.json({
+                    message: 'Deleted user successfully',
+                    deletedUserEmail: req.user.email,
+                    isDeleted: true
+                }).end();
+            }
+            // no else block -- the .catch block will handle any errors during 
+            // firebase update.
+        })
+        .catch(function (error) {
+            res.json({
+                message: error,
+                isDeleted: false
+            });
+        });
+    }
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res) {

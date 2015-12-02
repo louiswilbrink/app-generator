@@ -81,6 +81,23 @@ var db = {
 
         return confirmationId.promise;
     },
+    deleteUser: function (uid) {
+        var isUpdated = q.defer();
+
+        // Set user.stats to 'inactive' (don't actually delete the user info).
+        usersRef.child(uid).update({
+            status: 'inactive'
+        }, function (error) {
+            if (error) {
+                isUpdated.reject(error);
+            }
+            else {
+                isUpdated.resolve(true);
+            }
+        });
+
+        return isUpdated.promise;
+    },
     updateIsEmailConfirmed: function (uid, isEmailConfirmed) {
         var isUpdated = q.defer();
 
