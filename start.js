@@ -33,13 +33,19 @@ app.use(emailRoutes);
 app.use(appRoutes);
 
 // Initialize server scripts.
-async.parallel([db.init], function (error, result) {
+//async.parallel([db.init], function (error, result) {
+    //console.log('async.parallel');
 
-    if (error) {
-        return console.log('async error:', error);
-    }
+    //if (error) {
+        //return console.log('async error:', error);
+    //}
 
-    console.log('async result', result);
+    //console.log('async result', result);
+//});
+
+// Script initializations
+db.init().then(function (response) {
+    console.log('db initialized', response);
 });
 
 /******************************************************************************
