@@ -81,7 +81,14 @@ var db = {
 
         return confirmationId.promise;
     },
+    /**
+     * @param {String} uid User id
+     * @description
+     * This method sets user.status to 'inactive'.  Call 
+     * `authentication.removeUser` method to de-register user from firebase.
+     */ 
     deleteUser: function (uid) {
+        console.log('db.deleteUser');
         var isUpdated = q.defer();
 
         // Set user.stats to 'inactive' (don't actually delete the user info).

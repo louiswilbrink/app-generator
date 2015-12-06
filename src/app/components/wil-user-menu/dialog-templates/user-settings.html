@@ -9,6 +9,11 @@
         </div>
     </md-toolbar>
     <md-dialog-content style="max-width:800px; max-height:810px;">
+        <!-- PASSWORD FIELD -->
+        <md-input-container>
+            <label>Password</label>
+            <input name="password" type="password" required ng-model="password">
+        </md-input-container>
         <div class="md-dialog-content" layout="column">
             <div layout="row">
                 <md-button class="md-raised md-warn" ng-click="deleteUser()">

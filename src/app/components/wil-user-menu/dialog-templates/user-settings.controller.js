@@ -2,9 +2,9 @@
 
 angular.module('generatedApp')
     .controller('UserSettingsCtrl', ['$scope', '$mdDialog', 'User', 
-        '$log', '$http', '$location', 'Auth',
+        '$log', '$http', '$location', 'Auth', '$httpParamSerializer',
     function UserSettingsCtrl ($scope, $mdDialog, User, 
-        $log, $http, $location, Auth) {
+        $log, $http, $location, Auth, $httpParamSerializer) {
 
     /**
      * @description 
@@ -17,6 +17,12 @@ angular.module('generatedApp')
         $http({
             method: 'POST',
             url: '/delete-user', 
+            data: $httpParamSerializer({
+                password: $scope.password
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         })
         .then(function (response) {
             // if delete user action is successful, log out of firebase and

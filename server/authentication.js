@@ -3,6 +3,8 @@ var session       = require('express-session');
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var morgan        = require('morgan');
+var q             = require('q');
+var Firebase     = require('firebase');
 
 var db            = require('./db');
 var router        = express.Router();
@@ -23,6 +25,8 @@ router.use(session({
 
 router.use(passport.initialize());
 router.use(passport.session());
+
+var ref = new Firebase(config.firebaseEndpoint);
 
 /*******************************************************
  * AUTHENTICATION / SESSION
@@ -65,6 +69,46 @@ passport.deserializeUser(function(user, done) {
   console.log('deserializeUser', user);
   done(null, user);
 });
+
+/**
+ * @param {String} email 
+ * @param {String} password
+ * @description
+ * This method de-registers the user from firebase authentication.  Call 
+ * `db.deleteUser` to update their registration status in the database.
+ */
+function removeUser (email, password) {
+
+    console.log('email/password', email, password);
+
+    var isRemoved = q.defer();
+    
+    ref.removeUser({
+      email: email,
+      password: password
+    }, function(error) {
+      if (error) {
+        switch (error.code) {
+          case "INVALID_USER":
+            console.log("The specified user account does not exist.");
+            break;
+          case "INVALID_PASSWORD":
+            console.log("The specified user account password is incorrect.");
+            break;
+          default:
+            console.log("Error removing user:", error);
+        }
+
+        isRemoved.reject();
+      } else {
+        console.log("User account deleted successfully!");
+
+        isRemoved.resolve(true);
+      }
+    });
+        
+    return isRemoved.promise;
+}
 
 function auth (req, res, next) {
     console.log('auth function');
@@ -114,6 +158,7 @@ router.post('/register-user', function (req, res) {
  * This route handles deleting the user who is currently in the session.
  */
 router.post('/delete-user', function (req, res) {
+    console.log('req.body.password', req.body.password);
     // Check if this request was made with a user in session.
     if (!req.user || !req.user.email) {
         // Without a user in sesssion, no user delete action will occur.
@@ -130,6 +175,13 @@ router.post('/delete-user', function (req, res) {
         // Set status to 'inactive'
         db.deleteUser(uid).then(function (isUpdated) {
             if (isUpdated) {
+              return removeUser(req.user.email, req.body.password);
+            }
+            // no else block -- the .catch block will handle any errors during 
+            // firebase update.
+        })
+        .then(function (isRemoved) {
+            if (isRemoved) {
                 // Notify the client that 
                 res.json({
                     message: 'Deleted user successfully',
@@ -137,8 +189,6 @@ router.post('/delete-user', function (req, res) {
                     isDeleted: true
                 }).end();
             }
-            // no else block -- the .catch block will handle any errors during 
-            // firebase update.
         })
         .catch(function (error) {
             res.json({
