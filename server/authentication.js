@@ -79,32 +79,23 @@ passport.deserializeUser(function(user, done) {
  */
 function removeUser (email, password) {
 
-    console.log('email/password', email, password);
-
     var isRemoved = q.defer();
     
+    // Remove user from Firebase authenticated list.
     ref.removeUser({
       email: email,
       password: password
     }, function(error) {
-      if (error) {
-        switch (error.code) {
-          case "INVALID_USER":
-            console.log("The specified user account does not exist.");
-            break;
-          case "INVALID_PASSWORD":
-            console.log("The specified user account password is incorrect.");
-            break;
-          default:
-            console.log("Error removing user:", error);
+        // If there is an error, return code with promise.
+        // Otherwise return true.
+        if (error && error.code === 'INVALID_PASSWORD') {
+            console.log('The specified user account password is incorrect.');
+            isRemoved.reject(error.code); 
         }
-
-        isRemoved.reject();
-      } else {
-        console.log("User account deleted successfully!");
-
-        isRemoved.resolve(true);
-      }
+        else {
+            console.log('User account deleted successfully!');
+            isRemoved.resolve(true);
+        }
     });
         
     return isRemoved.promise;
@@ -158,7 +149,7 @@ router.post('/register-user', function (req, res) {
  * This route handles deleting the user who is currently in the session.
  */
 router.post('/delete-user', function (req, res) {
-    console.log('req.body.password', req.body.password);
+
     // Check if this request was made with a user in session.
     if (!req.user || !req.user.email) {
         // Without a user in sesssion, no user delete action will occur.
@@ -180,21 +171,22 @@ router.post('/delete-user', function (req, res) {
             // no else block -- the .catch block will handle any errors during 
             // firebase update.
         })
-        .then(function (isRemoved) {
-            if (isRemoved) {
-                // Notify the client that 
-                res.json({
-                    message: 'Deleted user successfully',
-                    deletedUserEmail: req.user.email,
-                    isDeleted: true
-                }).end();
-            }
+        .then(function () { // If removeUser() successful, no response needed.
+
+            // Notify the client that 
+            res.json({
+                message: 'Deleted user successfully',
+                deletedUserEmail: req.user.email,
+                isDeleted: true
+            }).end();
         })
         .catch(function (error) {
+            console.log('Error deleting user:', error);
+            
             res.json({
                 message: error,
                 isDeleted: false
-            });
+            }).end();
         });
     }
 });

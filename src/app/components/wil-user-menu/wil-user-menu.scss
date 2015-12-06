@@ -15,10 +15,14 @@
             }
         }
     }
+    md-dialog-actions {
+        padding-right: 16px;
+        padding-bottom: 16px;
+    }
 }
 
 .user-settings-container {
-    min-width: 420px;
+    width: 420px;
     md-dialog-content {
         .md-dialog-content {
             div {
@@ -30,7 +34,24 @@
                     line-height: 48px;
                 }
             }
+            .directions-and-warning {
+                height: 60px;
+                .md-caption {
+                    margin: 0px 0px 0px 0px;
+                }
+                .md-subheader {
+                    position: relative;
+                    top: -9px;
+                    .md-subheader-inner {
+                        padding: 0px 0px 0px 0px;
+                    }
+                }
+            }
         }
+    }
+    md-dialog-actions {
+        padding-right: 16px;
+        padding-bottom: 16px;
     }
 }
 

@@ -5,3 +5,6 @@ form {
 /* Dashboard Page */
 .dashboard-page {
   height: 100%; }
+
+.centered {
+  text-align: center; }

@@ -8,21 +8,32 @@
             </md-button>
         </div>
     </md-toolbar>
+    <wil-progress ng-if="isLoading"></wil-progress>
     <md-dialog-content style="max-width:800px; max-height:810px;">
-        <!-- PASSWORD FIELD -->
-        <md-input-container>
-            <label>Password</label>
-            <input name="password" type="password" required ng-model="password">
-        </md-input-container>
-        <div class="md-dialog-content" layout="column">
-            <div layout="row">
-                <md-button class="md-raised md-warn" ng-click="deleteUser()">
+        <form name="deleteUserForm" ng-submit="deleteUser()">
+            <!-- PASSWORD FIELD -->
+            <div class="md-dialog-content" layout="column">
+                <div class="directions-and-warning">
+                    <p class="md-caption">Enter your password to delete your credentials.</p>
+                    <md-subheader ng-if="hasDeleteError" class="md-warn">
+                        Invalid password.  Are you sure this is your account?
+                    </md-subheader>
+                </div>
+                <md-input-container>
+                    <label>Password</label>
+                    <input name="password" type="password" required ng-model="password">
+                    <div ng-messages="loginForm.email.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message="email">Your email address is invalid</div>
+                    </div>
+                </md-input-container>
+                <md-button class="md-raised md-warn" type="submit">
                     <md-icon md-svg-src="images/icons/ic_delete_24px.svg" class="name"></md-icon>
                     Delete User
                 </md-button>
-                <p class="md-caption">You will be logged out.  Forever.</p>
+                <p class="md-caption centered">You will be logged out.  Forever.</p>
             </div>
-        </div>
+        </form>
     </md-dialog-content>
     <md-dialog-actions layout="row">
         <md-button ng-click="openUserProfile()">
