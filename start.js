@@ -4,7 +4,6 @@ var bodyParser    = require('body-parser');
 var mongoose      = require('mongoose');
 var argv          = require('yargs').argv;
 var morgan        = require('morgan');
-var async         = require('async');
 
 var app           = express();
 var authRoutes    = require('./server/authentication');
@@ -31,17 +30,6 @@ app.use(bodyParser.json())
 app.use(authRoutes);
 app.use(emailRoutes);
 app.use(appRoutes);
-
-// Initialize server scripts.
-//async.parallel([db.init], function (error, result) {
-    //console.log('async.parallel');
-
-    //if (error) {
-        //return console.log('async error:', error);
-    //}
-
-    //console.log('async result', result);
-//});
 
 // Script initializations
 db.init().then(function (response) {

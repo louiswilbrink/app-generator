@@ -1,0 +1,14 @@
+{
+    "rules": {
+        ".read": "auth.uid === 'serverUUID'",
+        ".write": "auth.uid === 'serverUUID'",
+        "users": {
+            ".read": "auth.uid === 'serverUUID'",
+            ".write": "auth.uid === 'serverUUID'",
+            "$user_id": {
+                ".read": "$user_id === auth.uid",
+                ".write": "$user_id === auth.uid"
+            }
+        }
+    }
+}
