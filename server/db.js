@@ -46,7 +46,8 @@ function auth (username, password) {
 
 var db = {
     init: function () {
-        return auth('server@imaginapp.com', 'louis').then(function (uid) {
+        return auth(config.serverEmail, config.serverPassword)
+            .then(function (uid) {
             var isUsersLoaded = q.defer();
 
             // Initializing users object on server for lookups.
