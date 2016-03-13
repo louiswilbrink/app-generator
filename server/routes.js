@@ -38,7 +38,8 @@ router.get('/app-configuration', function (req, res) {
         // Add more configuration values to this object to access them on the
         // client.
         res.status(200).json({
-            appName: config.appName
+            appName: config.appName,
+            firebaseEndpoint: config.firebaseEndpoint
         });
     }
 

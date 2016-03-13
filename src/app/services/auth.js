@@ -4,20 +4,22 @@
 angular.module('app.services.auth', ['firebase'])
     .service('Auth', authService);
 
-    authService.$inject = ['$firebaseAuth', '$q', '$timeout'];
+    authService.$inject = ['$firebaseAuth', '$q', '$timeout', 'Config'];
 
-    function authService ($firebaseAuth, $q, $timeout) {
-
-        // Create firebase reference to endpoint, then create authentication
-        // reference.
-        var ref = new Firebase('https://wilforge-generator.firebaseio.com/');
-        var authRef = $firebaseAuth(ref);
+    function authService ($firebaseAuth, $q, $timeout, Config) {
 
         return {
+            ref: function () {
+
+              return new Firebase(Config.firebaseEndpoint());
+            },
+            authRef: function () {
+                return $firebaseAuth(this.ref());
+            },
             withEmail: function (email, password) {
                 var result = $q.defer();
 
-                authRef.$authWithPassword({
+                this.authRef().$authWithPassword({
                     email: email,
                     password: password
                 })
@@ -31,7 +33,7 @@ angular.module('app.services.auth', ['firebase'])
                 return result.promise;
             },
             getAuth: function () {
-                return ref.getAuth();
+                return this.ref().getAuth();
             },
             /*
              * params: none
@@ -42,7 +44,7 @@ angular.module('app.services.auth', ['firebase'])
              */
             getAuthAsPromise: function () {
                 var deferred = $q.defer();
-                var authState = ref.getAuth();
+                var authState = this.ref().getAuth();
 
                 if (authState) {
                     deferred.resolve(authState);
@@ -54,7 +56,7 @@ angular.module('app.services.auth', ['firebase'])
                 return deferred.promise;
             },
             logout: function () {
-                return ref.unauth();
+                return this.ref().unauth();
             }
         }
     };

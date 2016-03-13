@@ -4,12 +4,11 @@
 angular.module('app.services.user', ['firebase'])
     .service('User', userService);
 
-    userService.$inject = ['$timeout', '$q'];
+    userService.$inject = ['$timeout', '$q', 'Config'];
 
-    function userService ($timeout, $q) {
+    function userService ($timeout, $q, Config) {
+        console.log('userService');
 
-        // Create top-level and users level firebase references.
-        var ref = new Firebase('https://wilforge-generator.firebaseio.com/');
         var userRef;
   
 
@@ -31,8 +30,14 @@ angular.module('app.services.user', ['firebase'])
              * changes, this service will sync its own user info to the data
              * in firebase.  
              */
+            ref: function () {
+              console.log('user.ref');
+              console.log('Config.firebaseEndpoint()', Config.firebaseEndpoint());
+
+              return Config.firebaseEndpoint();
+            },
             init: function (uid) {
-                userRef = ref.child('users').child(uid);
+                userRef = this.ref().child('users').child(uid);
 
                 // Subscribe to user info updates.
                 userRef.on('value', function (snapshot) {

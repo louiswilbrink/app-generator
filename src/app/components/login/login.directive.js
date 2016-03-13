@@ -15,10 +15,10 @@ angular.module('app.components.login', [])
     }
 
     LoginCtrl.$inject = ['$http', '$httpParamSerializer', '$location', 
-        'Auth', 'Config', '$log'];
+        'Auth', 'Config', '$log', '$q'];
 
     function LoginCtrl ($http, $httpParamSerializer, $location, 
-        Auth, Config, $log) {
+        Auth, Config, $log, $q) {
         var vm = this;
 
         vm.email = null;
@@ -26,7 +26,10 @@ angular.module('app.components.login', [])
         vm.isUnauthorized = false;
         vm.isLoading = false;
 
-        vm.appName = Config.val().appName;
+        Config.appName().then(function (appName) {
+          vm.appName = appName;
+          console.log('vm.appName', vm.appName);
+        });
 
         // Authenticate with server.
         vm.onLogin = function (email, password) {
