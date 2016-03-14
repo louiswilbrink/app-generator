@@ -26,10 +26,7 @@ angular.module('app.components.login', [])
         vm.isUnauthorized = false;
         vm.isLoading = false;
 
-        Config.appName().then(function (appName) {
-          vm.appName = appName;
-          console.log('vm.appName', vm.appName);
-        });
+        vm.appName = Config.appName();
 
         // Authenticate with server.
         vm.onLogin = function (email, password) {

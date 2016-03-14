@@ -4,12 +4,11 @@
 angular.module('app.services.user', ['firebase'])
     .service('User', userService);
 
-    userService.$inject = ['$timeout', '$q', 'Config'];
+    userService.$inject = ['$timeout', '$q'];
 
-    function userService ($timeout, $q, Config) {
-        console.log('userService');
+    function userService ($timeout, $q) {
 
-        var userRef;
+        var ref, userRef;
   
 
         var info = {
@@ -21,6 +20,9 @@ angular.module('app.services.user', ['firebase'])
         };
 
         return {
+            setEndpoint: function (endpoint) {
+              ref = new Firebase(endpoint);
+            },
             /*
              * param: string
              * return: none
@@ -30,14 +32,8 @@ angular.module('app.services.user', ['firebase'])
              * changes, this service will sync its own user info to the data
              * in firebase.  
              */
-            ref: function () {
-              console.log('user.ref');
-              console.log('Config.firebaseEndpoint()', Config.firebaseEndpoint());
-
-              return Config.firebaseEndpoint();
-            },
             init: function (uid) {
-                userRef = this.ref().child('users').child(uid);
+                userRef = ref.child('users').child(uid);
 
                 // Subscribe to user info updates.
                 userRef.on('value', function (snapshot) {

@@ -11,55 +11,57 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
     * Route Configuration
     **************************************************/
     $routeProvider.when('/', {
-        templateUrl: 'pages/login.html',
-        resolve: {
-            isAuthenticated: function ($http, $location, Auth, $q, User) {
+      templateUrl: 'pages/login.html',
+      resolve: {
+        isAuthenticated: function ($http, $location, Auth, $q, User, Config) {
+          var isAuthenticated = $q.defer();
 
-                var isAuthenticated = $q.defer();
-                
-                // If the client is authenticated with the server AND firebase,
-                // go directly to the dashboard.  If not, resolve the promise 
-                // to display the page (login).
-                //
-                // First checking server authentication..
-                $http.get('/is-authenticated').then(function () {
-                  console.log('/is-authenticated (200)');
-                  return Auth.getAuthAsPromise();
-                })
-                // .. then getting the authentication state of the client..
-                .then(function (authState) {
+          Config.init().then(function () {
 
-                  // If a user id exists, then the client is currently
-                  // authenticated with Firebase.
-                  if (authState.uid) {
-                    // Populate User data: name, email, etc..
-                    User.init(authState.uid);
+            // If the client is authenticated with the server AND firebase,
+            // go directly to the dashboard.  If not, resolve the promise 
+            // to display the page (login).
+            //
+            // First checking server authentication..
+            $http.get('/is-authenticated').then(function () {
+              console.log('/is-authenticated (200)');
+              return Auth.getAuthAsPromise();
+            })
+            // .. then getting the authentication state of the client..
+            .then(function (authState) {
 
-                    console.log('[firebase] - authenticated');
+              // If a user id exists, then the client is currently
+              // authenticated with Firebase.
+              if (authState.uid) {
+                // Populate User data: name, email, etc..
+                User.init(authState.uid);
 
-                    // /dashboard is an auth page.
-                    $location.path('/dashboard');
-                  }
-                  else {
-                    console.log('Client NOT authenticated with Firebase');
+                console.log('[firebase] - authenticated');
 
-                    // Since the client isn't authenticated with Firebase,
-                    // resolve the promise and load the login page.
-                    isAuthenticated.resolve();
-                  }
-                })
-                .catch(function (error) {
-                    console.log('Client not authenticated with server and/or' +
-                        ' firebase');
+                // /dashboard is an auth page.
+                $location.path('/dashboard');
+              }
+              else {
+                console.log('Client NOT authenticated with Firebase');
 
-                    // Only resolve if the client is unauthenticated.
-                    // This will load the login page.
-                    isAuthenticated.resolve(); 
-                });
+                // Since the client isn't authenticated with Firebase,
+                // resolve the promise and load the login page.
+                isAuthenticated.resolve();
+              }
+            })
+            .catch(function (error) {
+                console.log('Client not authenticated with server and/or' +
+                    ' firebase');
 
-                return isAuthenticated.promise;
-            }
-        },
+                // Only resolve if the client is unauthenticated.
+                // This will load the login page.
+                isAuthenticated.resolve(); 
+            });
+          });
+
+          return isAuthenticated.promise;
+        }
+      },
     })
     .when('/sign-up', {
         templateUrl: 'pages/sign-up.html',
@@ -68,27 +70,44 @@ angular.module('generatedApp', ['ngRoute', 'ngMaterial', 'ngMessages',
         templateUrl: 'pages/dashboard.html',
         controller: 'DashboardCtrl',
         resolve: {
-            serverAuth: function ($http, $location) {
-                return $http.get('/is-authenticated')
-                    .success(function (payload) {
-                        console.log('/is-authenticated (200)');
-                    })
-                    .error(function (error) {
-                        console.log('/is-authenticated (401)');
-                        $location.path('/');
-                    });
+            serverAuth: function ($http, $location, Config, $q) {
+
+              var isServerAuthenticated = $q.defer();
+
+              Config.init().then(function () {
+                $http.get('/is-authenticated').then(function (payload) {
+                  console.log('/is-authenticated (200)');
+
+                  isServerAuthenticated.resolve(true);
+                })
+                .catch(function (error) {
+                  console.log('/is-authenticated (401)');
+                  $location.path('/');
+                });
+              });
+
+              return isServerAuthenticated.promise;
             },
-            firebaseAuth: function (Auth, User, $location) {
-                return Auth.getAuthAsPromise()
-                    .then(function (authState) {
-                        console.log('[firebase] - authenticated');
-                        // Populate User data: name, email, etc..
-                        User.init(authState.uid);
-                    })
-                    .catch(function (error) {
-                        console.log('[firebase] - unauthenticated');
-                        $location.path('/');
-                    });
+            firebaseAuth: function (Auth, User, $location, $q, Config) {
+
+              var isFirebaseAuthenticated = $q.defer();
+
+              Config.init().then(function () {
+
+                Auth.getAuthAsPromise().then(function (authState) {
+                  console.log('[firebase] - authenticated');
+                  // Populate User data: name, email, etc..
+                  User.init(authState.uid);
+
+                  isFirebaseAuthenticated.resolve(true);
+                })
+                .catch(function (error) {
+                  console.log('[firebase] - unauthenticated');
+                  $location.path('/');
+                });
+              });
+
+              return isFirebaseAuthenticated.promise;
             }
         }
     })

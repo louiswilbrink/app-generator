@@ -12,17 +12,14 @@
 angular.module('app.services.config', [])
     .service('Config', configService);
 
-    configService.$inject = ['$http', '$q'];
+    configService.$inject = ['$http', '$q', 'Auth', 'User'];
 
-    function configService ($http, $q) {
-
-        console.log('configService');
+    function configService ($http, $q, Auth, User) {
 
         var config = null;
 
         return {
             init: function () {
-              console.log('Config.init()');
               return $http({
                 method: 'GET',
                 url: '/app-configuration'
@@ -31,27 +28,14 @@ angular.module('app.services.config', [])
                 // Assign configuration values to service variables.
                 config = response.data;
                 console.log('Application configured', config);
+
+                // Seed configuration values to services.
+                Auth.setEndpoint(config.firebaseEndpoint);
+                User.setEndpoint(config.firebaseEndpoint);
               });
             },
             appName: function () {
-              var appName = $q.defer();
-
-              if (config) {
-                console.log('config already initialized from server');
-                appName.resolve(config.appName);
-              } 
-              else {
-                console.log('config not yet intialized.  Initializing from server');
-                this.init().then(function () {
-                  // the init() function will have assigned the config variable.
-                  appName.resolve(config.appName);
-                })
-                .catch(function (error) {
-                  appName.reject(error);
-                });
-              }
-
-              return appName.promise;
+              return config.appName;
             },
             firebaseEndpoint: function () {
               var endpoint = $q.defer();

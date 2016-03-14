@@ -4,17 +4,18 @@
 angular.module('app.services.auth', ['firebase'])
     .service('Auth', authService);
 
-    authService.$inject = ['$firebaseAuth', '$q', '$timeout', 'Config'];
+    authService.$inject = ['$firebaseAuth', '$q', '$timeout'];
 
-    function authService ($firebaseAuth, $q, $timeout, Config) {
+    function authService ($firebaseAuth, $q, $timeout) {
+
+        var ref;
 
         return {
-            ref: function () {
-
-              return new Firebase(Config.firebaseEndpoint());
+            setEndpoint: function (endpoint) {
+              ref = new Firebase(endpoint);
             },
             authRef: function () {
-                return $firebaseAuth(this.ref());
+                return $firebaseAuth(ref);
             },
             withEmail: function (email, password) {
                 var result = $q.defer();
@@ -33,7 +34,7 @@ angular.module('app.services.auth', ['firebase'])
                 return result.promise;
             },
             getAuth: function () {
-                return this.ref().getAuth();
+                return ref.getAuth();
             },
             /*
              * params: none
@@ -44,7 +45,7 @@ angular.module('app.services.auth', ['firebase'])
              */
             getAuthAsPromise: function () {
                 var deferred = $q.defer();
-                var authState = this.ref().getAuth();
+                var authState = ref.getAuth();
 
                 if (authState) {
                     deferred.resolve(authState);
@@ -56,7 +57,7 @@ angular.module('app.services.auth', ['firebase'])
                 return deferred.promise;
             },
             logout: function () {
-                return this.ref().unauth();
+                return ref.unauth();
             }
         }
     };
