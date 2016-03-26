@@ -4,7 +4,7 @@ var router          = express.Router();
 var config          = require('../config/configuration').getConfig();
 var db              = require('./db');
 var q               = require('q');
-var sendgrid        = require("sendgrid")(config.sendgridApiKey);
+var sendgrid        = require('sendgrid')(config.sendgridApiKey);
 
 /******************************************************************************
  * CONFIGURATION
