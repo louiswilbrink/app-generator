@@ -1,19 +1,16 @@
 var express         = require('express');
 var morgan          = require('morgan');
-var mandrillPackage = require('mandrill-api/mandrill');
 var router          = express.Router();
 var config          = require('../config/configuration').getConfig();
 var db              = require('./db');
 var q               = require('q');
+var sendgrid        = require("sendgrid")(config.sendgridApiKey);
 
 /******************************************************************************
  * CONFIGURATION
  *****************************************************************************/
 
 router.use(morgan('dev'));
-
-// Attach mandrill api key.
-var mandrill = new mandrillPackage.Mandrill(config.mandrillApiKey);
 
 /******************************************************************************
 * METHODS
@@ -24,37 +21,30 @@ function sendConfirmationEmail (email) {
 
     return db.getConfirmationId(userId).then(function (confirmationId) {
 
-        var message = {
-           'html': '<h1 style="text-align: center">Email Confirmation</h1>' +
-                    '<p>Please confirm your email by clicking ' +
-                    '<a href="http://' + config.domain + ':' + config.port +
-                    '/confirm-email/' + confirmationId + '/' + email +
-                    '">confirm.</a></p>',
-            'text': 'Confirmation Email',
-            'subject': config.appName + ' Email Confirmation',
-            'from_email': config.infoEmailAddress,
-            'from_name': 'The Team at ' + config.appName,
-            'to': [{
-                'email': email,
-                'name': 'New User',
-                'type': 'to'
-             }]
-        };
-
         var isMessageSent = q.defer();
 
-        mandrill.messages.send({ 
-            'message': message, 
-            'async': false
-        }, function (result) {
-            console.log('email success:', result);
-            isMessageSent.resolve(true);
-        }, function (error) {
-            // Mandrill returns the error as an object with name and message keys
-            console.log('A mandrill error occurred: ' + 
-                error.name + ' - ' + 
-                error.message);
+        var sgEmail = new sendgrid.Email();
+
+        var html = '<h1 style="text-align: center">Email Confirmation</h1>' +
+                   '<p>Please confirm your email by clicking ' +
+                   '<a href="http://' + config.domain + ':' + config.port +
+                   '/confirm-email/' + confirmationId + '/' + email +
+                   '">confirm.</a></p>';
+
+        sgEmail.addTo(email);
+        sgEmail.setFrom(config.infoEmailAddress);
+        sgEmail.setSubject(config.appName + ' Email Confirmation');
+        sgEmail.setHtml(html);
+
+        sendgrid.send(sgEmail, function (error, json) {
+          if (error) {
+            console.log('Error sending confirmation email:', error);
             isMessageSent.reject(error);
+          }
+          else {
+            console.log('Confirmation email sent:', json);
+            isMessageSent.resolve(true);
+          }
         });
 
         return isMessageSent.promise;
