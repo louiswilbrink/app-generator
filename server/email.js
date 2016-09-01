@@ -55,6 +55,32 @@ function sendConfirmationEmail (email) {
 * ROUTES
 ******************************************************************************/
 
+router.post('/send-account-termination-email', function (req, res) {
+  console.log('/send-account-termination-email', req.body);
+
+  var email = req.body.email;
+
+  // Create new sendgrid email.
+  var sgEmail = new sendgrid.Email();
+
+  // Set email parameters.
+  sgEmail.setTos(email);
+  sgEmail.setFrom("introgo.dev@gmail.com");
+  sgEmail.setSubject("Account termination");
+  sgEmail.setHtml("Sorry to see you go!");
+
+  console.log('sending account termination email to: ', email);
+
+  // Send email and respond to client with email success/failure.
+  sendgrid.send(sgEmail, function (error, json) {
+    if (error) {
+      console.log('There was an error emailing!', error);
+    } 
+  });
+
+  res.status(200).end();
+});
+
 router.get('/confirm-email/:confirmationId/:email', function (req, res) {
     console.log('/confirm-email/:confirmationId/:email: ', req.params);
 
