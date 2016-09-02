@@ -33,7 +33,7 @@ app.use(appRoutes);
 
 // Script initializations
 db.init().then(function (response) {
-    console.log('db initialized', response);
+  console.log('db initialized', response);
 });
 
 /******************************************************************************

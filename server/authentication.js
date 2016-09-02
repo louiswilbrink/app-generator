@@ -18,9 +18,9 @@ var config        = require('../config/configuration').getConfig();
 router.use(morgan('dev'));
 
 router.use(session({ 
-    secret: config.sessionSecret,
-    resave: false,
-    saveUninitialized: false
+  secret: config.sessionSecret,
+  resave: false,
+  saveUninitialized: false
 }));
 
 router.use(passport.initialize());
@@ -102,19 +102,19 @@ function removeUser (email, password) {
 }
 
 function auth (req, res, next) {
-    console.log('auth function');
+  console.log('auth function');
 
-    // Passport automatically generates a user object on every request if the 
-    // cookie is valid.
-    if (req.user) {
-        console.log(req.user.email, 'is logged in');
-        res.sendStatus(200);
-    }
-    else {
-        console.log('user not logged in');
-        res.sendStatus(401);
-    }
-    next();
+  // Passport automatically generates a user object on every request if the 
+  // cookie is valid.
+  if (req.user) {
+    console.log(req.user.email, 'is logged in');
+    res.sendStatus(200);
+  }
+  else {
+    console.log('user not logged in');
+    res.sendStatus(401);
+  }
+  next();
 }
 
 /*******************************************************

@@ -20,7 +20,7 @@
     "esprima": "^2.7.0",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
-    "firebase": "^2.2.9",
+    "firebase": "3.3.0",
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
     "gulp-live-server": "0.0.29",
