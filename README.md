@@ -1,4 +1,4 @@
-#App Generator
+# App Generator
 
 This is a full-stack generator to scaffold basic operations of a web app:  User Management, Sessions, Email, Routes, and a database.  For User Management, the client authenticates with the server using PassportJS, which checks a user list saved in Firebase.  At the same time, the client authenticates with Firebase.  A login screen and dashboard are default angular routes.  The server maintains routes for serving index.html and static files, along with email controller routes and authentication endpoints.
 
