@@ -24,7 +24,7 @@ Install Node and npm, then:
 - `gulp sass`
   - Compiles `sass` files.
 
-###Backend:
+### Backend:
 * Node/Express
 * PassportJS
 * Firebase
