@@ -8,7 +8,7 @@ The application requires a `configuration.js` file that will contain environment
 
 Install Node and npm, then:
 
-1. Clone the repository: `git clone https://github.com/adam-p/markdown-here.wiki.git`
+1. Clone the repository: `git clone git@github.com:louiswilbrink/app-generator.git`
 2. `$ npm install`
 3. `$ bower install`
 4. `$ gulp serve`
