@@ -34,7 +34,7 @@ Install Node and npm, then:
 * Twilio
 * Plaid
 
-###Frontend:
+### Frontend:
 
 * Angular, Material Design
 
